@@ -1,0 +1,29 @@
+app-id: io.github.smapgit.gmkvextractgui
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+command: gmkvextractgui
+branch: stable
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Flatpak
+modules:
+  - name: gmkvextractgui
+    buildsystem: simple
+    build-commands:
+      - install -d /app/lib/gmkvextractgui /app/bin
+      - cp -a publish/. /app/lib/gmkvextractgui/
+      - install -Dm755 launcher /app/bin/gmkvextractgui
+      - install -Dm755 tool-wrappers/mkvmerge /app/bin/mkvmerge
+      - install -Dm755 tool-wrappers/mkvinfo /app/bin/mkvinfo
+      - install -Dm755 tool-wrappers/mkvextract /app/bin/mkvextract
+      - install -Dm644 desktop/io.github.smap-git.gmkvextractgui.desktop /app/share/applications/io.github.smapgit.gmkvextractgui.desktop
+      - install -Dm644 metainfo/io.github.smap-git.gmkvextractgui.metainfo.xml /app/share/metainfo/io.github.smapgit.gmkvextractgui.metainfo.xml
+      - install -Dm644 icon.svg /app/share/icons/hicolor/scalable/apps/io.github.smapgit.gmkvextractgui.svg
+    sources:
+      - type: dir
+        path: .build-input

@@ -1,0 +1,7 @@
+**/bin/
+**/obj/
+artifacts/
+packaging/arch/gMKVExtractGUI_Linux_Version-*.tar.gz
+/squashfs-root/
+/packaging/arch/pkg/
+/packaging/arch/src/

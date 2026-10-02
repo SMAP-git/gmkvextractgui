@@ -1,0 +1,3 @@
+#!/bin/sh
+export GMKVEXTRACTGUI_TOOL_PATH=/app/bin
+exec /app/lib/gmkvextractgui/gMKVExtractGUI "$@"

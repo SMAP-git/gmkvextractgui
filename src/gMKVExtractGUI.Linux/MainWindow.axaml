@@ -1,0 +1,195 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:gMKVExtractGUI.Linux"
+        x:Class="gMKVExtractGUI.Linux.MainWindow"
+        Title="gMKVExtractGUI"
+        Width="1120"
+        Height="760"
+        MinWidth="880"
+        MinHeight="620"
+        Background="{DynamicResource WindowBackgroundBrush}">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#F2F5F3" />
+          <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#FFFFFF" />
+          <SolidColorBrush x:Key="PanelHeaderBrush" Color="#F7F9F8" />
+          <SolidColorBrush x:Key="BorderBrush" Color="#D8E0DB" />
+          <SolidColorBrush x:Key="DividerBrush" Color="#E3E8E5" />
+          <SolidColorBrush x:Key="PrimaryTextBrush" Color="#17231F" />
+          <SolidColorBrush x:Key="SecondaryTextBrush" Color="#69766F" />
+          <SolidColorBrush x:Key="LabelTextBrush" Color="#52615B" />
+          <SolidColorBrush x:Key="AccentBrush" Color="#2E6753" />
+          <SolidColorBrush x:Key="AccentSurfaceBrush" Color="#E1EAE5" />
+          <SolidColorBrush x:Key="TrackBorderBrush" Color="#E8ECE9" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#111619" />
+          <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#11171B" />
+          <SolidColorBrush x:Key="PanelHeaderBrush" Color="#1B2228" />
+          <SolidColorBrush x:Key="BorderBrush" Color="#2B353E" />
+          <SolidColorBrush x:Key="DividerBrush" Color="#263038" />
+          <SolidColorBrush x:Key="PrimaryTextBrush" Color="#DCE5EE" />
+          <SolidColorBrush x:Key="SecondaryTextBrush" Color="#91A2B4" />
+          <SolidColorBrush x:Key="LabelTextBrush" Color="#B9C7D6" />
+          <SolidColorBrush x:Key="AccentBrush" Color="#55D8B5" />
+          <SolidColorBrush x:Key="AccentSurfaceBrush" Color="#1C3936" />
+          <SolidColorBrush x:Key="TrackBorderBrush" Color="#263038" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Window.Styles>
+    <Style Selector="TextBlock.page-title">
+      <Setter Property="FontSize" Value="26" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+    </Style>
+    <Style Selector="TextBlock.section-title">
+      <Setter Property="FontSize" Value="15" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+    </Style>
+    <Style Selector="TextBlock.field-label">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+  </Window.Styles>
+  <Grid Margin="24" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="18">
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto">
+      <StackPanel Spacing="3">
+        <TextBlock Classes="page-title" Text="gMKVExtractGUI" />
+        <TextBlock x:Name="AppSubtitleText" Foreground="{DynamicResource SecondaryTextBrush}" Text="Matroska track extraction" />
+      </StackPanel>
+      <Border Grid.Column="1" Background="{DynamicResource AccentSurfaceBrush}" CornerRadius="4" Padding="12,7" VerticalAlignment="Center">
+        <TextBlock x:Name="LinuxEditionText" Foreground="{DynamicResource AccentBrush}" FontSize="12" FontWeight="SemiBold" Text="Linux Edition" />
+      </Border>
+      <Button x:Name="BannerMenuButton"
+              Grid.Column="2"
+              Width="32"
+              Height="32"
+              Margin="8,0,0,0"
+              Padding="0"
+              Background="{DynamicResource AccentSurfaceBrush}"
+              BorderThickness="0"
+              CornerRadius="4"
+              Click="BannerMenuButton_Click"
+              ToolTip.Tip="Options">
+        <TextBlock Text="⚙" FontSize="18" Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Button>
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="150,*,Auto,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="9">
+      <TextBlock x:Name="InputFilesLabel" Classes="field-label" Grid.Row="0" Text="Input files" />
+      <TextBox x:Name="InputPathBox" Grid.Row="0" Grid.Column="1" AcceptsReturn="True" Height="56" TextChanged="InputPath_Changed" Watermark="Choose one or more MKV files">
+        <TextBox.ContextMenu>
+          <ContextMenu>
+            <MenuItem x:Name="AddInputFilesMenuItem" Header="Add Input File(s)..." Click="AddInputFilesMenu_Click" />
+            <Separator />
+            <MenuItem x:Name="CheckAllTracksMenuItem" Header="Check All Tracks" Click="SelectAll_Click" />
+            <MenuItem x:Name="UncheckAllTracksMenuItem" Header="Uncheck All Tracks" Click="SelectNone_Click" />
+            <Separator />
+            <MenuItem x:Name="RemoveAllInputFilesMenuItem" Header="Remove All Input Files" Click="RemoveAllInputFiles_Click" />
+            <MenuItem x:Name="RemoveSelectedInputFileMenuItem" Header="Remove Selected Input File" Click="RemoveSelectedInputFile_Click" />
+            <MenuItem x:Name="OpenSelectedInputFileMenuItem" Header="Open Selected File..." Click="OpenSelectedInputFile_Click" />
+            <MenuItem x:Name="OpenSelectedInputFolderMenuItem" Header="Open Selected File Folder..." Click="OpenSelectedInputFolder_Click" />
+            <Separator />
+            <MenuItem x:Name="ExpandInputFilesMenuItem" Header="Expand All" Click="ExpandInputFiles_Click" />
+            <MenuItem x:Name="CollapseInputFilesMenuItem" Header="Collapse All" Click="CollapseInputFiles_Click" />
+          </ContextMenu>
+        </TextBox.ContextMenu>
+      </TextBox>
+      <Button x:Name="BrowseInputButton" Grid.Row="0" Grid.Column="2" Click="BrowseInput_Click" Content="Browse..." />
+
+      <TextBlock x:Name="OutputFolderLabel" Classes="field-label" Grid.Row="1" Text="Output folder" />
+      <TextBox x:Name="OutputPathBox" Grid.Row="1" Grid.Column="1" Watermark="Choose where extracted files will be saved" />
+      <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Click="BrowseOutput_Click" Content="Choose folder..." />
+
+      <TextBlock x:Name="ToolPathLabel" Classes="field-label" Grid.Row="2" Text="MKVToolNix path" />
+      <TextBox x:Name="ToolPathBox" Grid.Row="2" Grid.Column="1" Text="/usr/bin" />
+      <TextBlock x:Name="ToolPathDescription" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" Text="Contains mkvmerge, mkvinfo and mkvextract" />
+    </Grid>
+
+    <Border Grid.Row="2" Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="5" Padding="16">
+      <Grid RowDefinitions="Auto,1,*" RowSpacing="12">
+        <Grid ColumnDefinitions="*,Auto,Auto,Auto" Background="{DynamicResource PanelHeaderBrush}">
+          <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+            <TextBlock x:Name="TracksTitleText" Classes="section-title" Text="Extractable Tracks" />
+            <TextBlock x:Name="ItemCountText" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" Text="No file analyzed" />
+          </StackPanel>
+          <Button x:Name="SelectByTypeButton" Grid.Column="1" Click="SelectByType_Click" Content="Select by type..." IsEnabled="False" Margin="8,0,0,0" />
+          <Button x:Name="SelectAllButton" Grid.Column="2" Click="SelectAll_Click" Content="Select all" Margin="8,0,0,0" />
+          <Button x:Name="ClearSelectionButton" Grid.Column="3" Click="SelectNone_Click" Content="Clear" Margin="8,0,0,0" />
+        </Grid>
+        <Border Grid.Row="1" Background="{DynamicResource DividerBrush}" Height="1" />
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+          <ItemsControl x:Name="SegmentList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="local:InputFileGroup">
+                <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="4" Margin="0,0,0,8">
+                  <Expander IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+                    <Expander.Header>
+                      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" Margin="4,2">
+                        <TextBlock Foreground="{DynamicResource PrimaryTextBrush}" FontWeight="SemiBold" Text="{Binding FileName}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Foreground="{DynamicResource SecondaryTextBrush}" Text="{Binding ItemCount}" VerticalAlignment="Center" />
+                      </Grid>
+                    </Expander.Header>
+                    <ItemsControl ItemsSource="{Binding SegmentRows}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:SegmentRow">
+                          <Border BorderBrush="{DynamicResource TrackBorderBrush}" BorderThickness="0,1,0,0" Padding="6,8">
+                            <CheckBox IsChecked="{Binding IsSelected}" HorizontalAlignment="Stretch">
+                              <Grid ColumnDefinitions="100,*,Auto" ColumnSpacing="12">
+                                <TextBlock Grid.Column="0" Foreground="{DynamicResource AccentBrush}" FontSize="11" FontWeight="SemiBold" Text="{Binding Kind}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Foreground="{DynamicResource PrimaryTextBrush}" Text="{Binding Summary}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Foreground="{DynamicResource SecondaryTextBrush}" Text="{Binding Details}" VerticalAlignment="Center" />
+                              </Grid>
+                            </CheckBox>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </Expander>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="3" RowDefinitions="Auto,Auto,Auto" RowSpacing="10">
+      <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+        <TextBlock x:Name="ChapterFormatLabel" Classes="field-label" Text="Chapter format" />
+        <ComboBox x:Name="ChapterFormatBox" Width="130" SelectedIndex="0">
+          <ComboBoxItem x:Name="ChapterFormatXmlItem" Content="XML" />
+          <ComboBoxItem x:Name="ChapterFormatOgmItem" Content="OGM" />
+          <ComboBoxItem x:Name="ChapterFormatCueItem" Content="CUE" />
+          <ComboBoxItem x:Name="ChapterFormatPbfItem" Content="PBF" />
+        </ComboBox>
+        <CheckBox x:Name="OverwriteCheckBox" Content="Overwrite existing files" VerticalAlignment="Center" />
+        <TextBlock x:Name="StatusText" Foreground="{DynamicResource LabelTextBrush}" VerticalAlignment="Center" Margin="8,0,0,0" Text="Choose an input file to begin." />
+      </StackPanel>
+      <StackPanel Grid.Row="1" Spacing="6">
+        <StackPanel x:Name="OverallProgressPanel" Spacing="3" IsVisible="False">
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBlock x:Name="OverallProgressLabel" Classes="field-label" Text="Overall progress" />
+            <TextBlock x:Name="OverallProgressPercent" Grid.Column="1" Classes="field-label" Text="0%" />
+          </Grid>
+          <ProgressBar x:Name="OverallProgressBar" Minimum="0" Maximum="100" Height="8" />
+        </StackPanel>
+        <StackPanel Spacing="3">
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBlock x:Name="FileProgressLabel" Classes="field-label" Text="File progress" TextWrapping="Wrap" />
+            <TextBlock x:Name="FileProgressPercent" Grid.Column="1" Classes="field-label" Text="0%" />
+          </Grid>
+          <ProgressBar x:Name="FileProgressBar" Minimum="0" Maximum="100" Height="8" />
+        </StackPanel>
+      </StackPanel>
+      <Button x:Name="ExtractButton" Grid.Row="2" Click="Extract_Click" Content="Start extraction" IsEnabled="False" MinWidth="160" HorizontalAlignment="Right" />
+    </Grid>
+  </Grid>
+</Window>

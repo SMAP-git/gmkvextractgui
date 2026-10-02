@@ -1,0 +1,76 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:gMKVExtractGUI.Linux"
+        x:Class="gMKVExtractGUI.Linux.TranslationEditorWindow"
+        Title=""
+        Width="1120"
+        Height="740"
+        MinWidth="840"
+        MinHeight="560"
+        CanResize="True"
+        WindowStartupLocation="CenterOwner">
+  <Window.Resources>
+    <ResourceDictionary>
+      <SolidColorBrush x:Key="TranslationHeaderBrush" Color="#E6EBE8" />
+      <SolidColorBrush x:Key="TranslationHeaderForegroundBrush" Color="#17231F" />
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Dark" />
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid Margin="10" RowDefinitions="Auto,*,Auto" RowSpacing="8">
+    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Padding="8">
+      <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
+        <TextBlock x:Name="SettingsTitleText" FontWeight="SemiBold" />
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,140,Auto,*,Auto,Auto" ColumnSpacing="8" RowSpacing="7">
+          <TextBlock x:Name="LocaleLabelText" VerticalAlignment="Center" />
+          <ComboBox x:Name="LocaleBox" Grid.Column="1" SelectionChanged="LocaleBox_SelectionChanged" />
+          <TextBlock x:Name="TranslatorLabelText" Grid.Column="2" VerticalAlignment="Center" />
+          <TextBox x:Name="TranslatorBox" Grid.Column="3" MinHeight="30" />
+          <TextBlock x:Name="SearchLabelText" Grid.Row="1" VerticalAlignment="Center" />
+          <TextBox x:Name="SearchBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" MinHeight="30" TextChanged="SearchBox_TextChanged" />
+          <CheckBox x:Name="UntranslatedCheckBox" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" IsCheckedChanged="UntranslatedCheckBox_IsCheckedChanged" />
+          <TextBlock x:Name="TranslatedCountText" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" VerticalAlignment="Center" />
+        </Grid>
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Padding="4">
+      <Grid RowDefinitions="Auto,*" RowSpacing="4">
+        <TextBlock x:Name="TranslationsTitleText" FontWeight="SemiBold" Margin="4,0" />
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+          <StackPanel MinWidth="1040">
+            <Grid ColumnDefinitions="220,250,*,54,180" Background="{DynamicResource TranslationHeaderBrush}">
+              <Border BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock x:Name="KeyHeaderText" FontWeight="SemiBold" Foreground="{DynamicResource TranslationHeaderForegroundBrush}" /></Border>
+              <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock x:Name="SourceHeaderText" FontWeight="SemiBold" Foreground="{DynamicResource TranslationHeaderForegroundBrush}" /></Border>
+              <Border Grid.Column="2" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock x:Name="TranslationHeaderText" FontWeight="SemiBold" Foreground="{DynamicResource TranslationHeaderForegroundBrush}" /></Border>
+              <Border Grid.Column="3" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock x:Name="DoneHeaderText" FontWeight="SemiBold" Foreground="{DynamicResource TranslationHeaderForegroundBrush}" /></Border>
+              <Border Grid.Column="4" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="5"><TextBlock x:Name="NotesHeaderText" FontWeight="SemiBold" Foreground="{DynamicResource TranslationHeaderForegroundBrush}" /></Border>
+            </Grid>
+            <ItemsControl x:Name="TranslationsList" ItemsSource="{Binding}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:TranslationEditorRow">
+                  <Grid ColumnDefinitions="220,250,*,54,180" MinHeight="40">
+                    <Border BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock Text="{Binding Key}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" ToolTip.Tip="{Binding Key}" /></Border>
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="5"><TextBlock Text="{Binding Source}" TextWrapping="Wrap" VerticalAlignment="Center" /></Border>
+                    <Border Grid.Column="2" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="3"><TextBox Text="{Binding Translation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="32" MaxHeight="64" VerticalContentAlignment="Center" /></Border>
+                    <Border Grid.Column="3" BorderBrush="Gray" BorderThickness="0,0,1,1" Padding="4"><CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" /></Border>
+                    <Border Grid.Column="4" BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="3"><TextBox Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="32" MaxHeight="64" VerticalContentAlignment="Center" /></Border>
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </ScrollViewer>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto,Auto,Auto" ColumnSpacing="8">
+      <TextBlock x:Name="StatusText" VerticalAlignment="Center" />
+      <Button x:Name="NewLocaleButton" Grid.Column="1" Click="NewLocaleButton_Click" MinWidth="100" />
+      <Button x:Name="SyncButton" Grid.Column="2" Click="SyncButton_Click" MinWidth="76" />
+      <Button x:Name="SaveButton" Grid.Column="3" Click="SaveButton_Click" MinWidth="82" />
+      <Button x:Name="CloseButton" Grid.Column="4" Click="CloseButton_Click" MinWidth="82" />
+    </Grid>
+  </Grid>
+</Window>

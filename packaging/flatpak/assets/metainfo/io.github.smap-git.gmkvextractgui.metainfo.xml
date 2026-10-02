@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.smapgit.gmkvextractgui</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Unlicense</project_license>
+  <name>gMKVExtractGUI</name>
+  <summary>Extract tracks and metadata from Matroska files</summary>
+  <description>
+    <p>A graphical interface for extracting tracks, chapters, attachments, cues, timecodes, and tags from Matroska files with MKVToolNix.</p>
+  </description>
+  <launchable type="desktop-id">io.github.smapgit.gmkvextractgui.desktop</launchable>
+  <provides>
+    <binary>gmkvextractgui</binary>
+  </provides>
+  <releases>
+    <release version="1.0" date="2026-10-03" />
+  </releases>
+</component>
