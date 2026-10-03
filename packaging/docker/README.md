@@ -27,6 +27,24 @@ docker pull ghcr.io/smap-git/gmkvextractgui:1.0
 
 GitHub may initially mark the container package private. If public downloads are needed, change its visibility to public in the package settings on GitHub.
 
+## Unraid
+
+Use the [Unraid container template](unraid-template.xml), or enter the same values in Unraid's Docker form:
+
+| Setting | Value |
+| --- | --- |
+| Repository | `ghcr.io/smap-git/gmkvextractgui:1.0` |
+| Network type | `bridge` |
+| Extra parameters | `--user=99:100` (`nobody:users`) |
+| VNC port | Host `5901` to container `5901/tcp` |
+| VNC password | 6-8 characters |
+| Container `HOME` | `/config` |
+| App config path | `/mnt/user/appdata/gMKVExtractGUI` to `/config` |
+| Media path | `/mnt/user/Media` to `/media` (read-only) |
+| Extraction path | `/mnt/user/Media/Extracted` to `/output` (read/write) |
+
+Start the container and connect a VNC client to `<unraid-ip>:5901` using the configured password. Make sure the host output directory is writable by UID `99`, GID `100` (`nobody:users`).
+
 Create a VNC password, input directory, and extraction directory, then start the container with its VNC port bound to localhost:
 
 ```sh

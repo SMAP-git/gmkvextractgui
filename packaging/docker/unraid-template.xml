@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>gMKVExtractGUI</Name>
+  <Repository>ghcr.io/smap-git/gmkvextractgui:1.0</Repository>
+  <Registry>https://ghcr.io/</Registry>
+  <Network>bridge</Network>
+  <MyIP />
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/SMAP-git/gmkvextractgui/issues</Support>
+  <Project>https://github.com/SMAP-git/gmkvextractgui</Project>
+  <Overview>Extract Matroska tracks and metadata in a TigerVNC desktop. Connect to the mapped VNC port with a VNC client.</Overview>
+  <Category>MediaApp:Video</Category>
+  <WebUI />
+  <TemplateURL>https://github.com/SMAP-git/gmkvextractgui/blob/main/packaging/docker/unraid-template.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/SMAP-git/gmkvextractgui/main/packaging/gMKVExtractGUI.svg</Icon>
+  <ExtraParams>--user=99:100</ExtraParams>
+  <PostArgs />
+  <CPUset />
+  <DateInstalled />
+  <DonateText />
+  <DonateLink />
+  <Requires />
+  <Config Name="VNC Port" Target="5901" Default="5901" Mode="tcp" Description="VNC server port. Connect with a VNC client to the Unraid host on this port." Type="Port" Display="always" Required="true" Mask="false">5901</Config>
+  <Config Name="VNC Password" Target="VNC_PASSWORD" Default="" Mode="" Description="Required VNC password, 6-8 characters." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="VNC Geometry" Target="VNC_GEOMETRY" Default="1280x800" Mode="" Description="Virtual desktop resolution." Type="Variable" Display="advanced" Required="true" Mask="false">1280x800</Config>
+  <Config Name="Home / app config" Target="/config" Default="/mnt/user/appdata/gMKVExtractGUI" Mode="rw" Description="Persists language preference and app configuration." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/gMKVExtractGUI</Config>
+  <Config Name="Media input" Target="/media" Default="/mnt/user/Media" Mode="ro" Description="Media files available for extraction." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/Media</Config>
+  <Config Name="Extraction output" Target="/output" Default="/mnt/user/Media/Extracted" Mode="rw" Description="Destination for extracted tracks and metadata." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/Media/Extracted</Config>
+  <Config Name="HOME" Target="HOME" Default="/config" Mode="" Description="Container home directory; keep this mapped to /config for persistent settings." Type="Variable" Display="advanced" Required="true" Mask="false">/config</Config>
+</Container>
