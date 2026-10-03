@@ -7,7 +7,7 @@ COPY gmkvextractgui.deb /tmp/gmkvextractgui.deb
 RUN sed -i 's/^Components: main$/Components: main universe/' /etc/apt/sources.list.d/ubuntu.sources \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates openbox tigervnc-standalone-server tigervnc-tools \
+        ca-certificates openbox python3-xdg tigervnc-standalone-server tigervnc-tools \
         /tmp/gmkvextractgui.deb \
     && rm -f /tmp/gmkvextractgui.deb \
     && rm -rf /var/lib/apt/lists/*
