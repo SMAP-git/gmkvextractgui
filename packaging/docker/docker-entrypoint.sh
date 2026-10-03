@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ -z "${VNC_PASSWORD:-}" ]]; then
-    printf 'Set VNC_PASSWORD to a 6-8 character password before starting the container.\n' >&2
-    exit 1
-fi
-
-if [[ ${#VNC_PASSWORD} -lt 6 || ${#VNC_PASSWORD} -gt 8 ]]; then
-    printf 'VNC_PASSWORD must contain 6-8 characters (TigerVNC VncAuth limit).\n' >&2
-    exit 1
-fi
-
 RUNTIME_DIR="$(mktemp -d /tmp/gmkvextractgui-vnc.XXXXXX)"
 PASSWORD_FILE="$RUNTIME_DIR/passwd"
 VNC_PID=""
 OPENBOX_PID=""
 APP_PID=""
+VNC_SECURITY_ARGS=()
 
 cleanup() {
     for pid in "$APP_PID" "$OPENBOX_PID" "$VNC_PID"; do
@@ -29,15 +20,24 @@ cleanup() {
 trap cleanup EXIT
 trap 'exit 0' INT TERM
 
-printf '%s\n' "$VNC_PASSWORD" | tigervncpasswd -f > "$PASSWORD_FILE"
-chmod 0600 "$PASSWORD_FILE"
-unset VNC_PASSWORD
+if [[ -n "${VNC_PASSWORD:-}" ]]; then
+    if [[ ${#VNC_PASSWORD} -lt 6 || ${#VNC_PASSWORD} -gt 8 ]]; then
+        printf 'VNC_PASSWORD must contain 6-8 characters (TigerVNC VncAuth limit).\n' >&2
+        exit 1
+    fi
+    printf '%s\n' "$VNC_PASSWORD" | tigervncpasswd -f > "$PASSWORD_FILE"
+    chmod 0600 "$PASSWORD_FILE"
+    VNC_SECURITY_ARGS=(-SecurityTypes VncAuth -rfbauth "$PASSWORD_FILE")
+    unset VNC_PASSWORD
+else
+    printf 'WARNING: VNC authentication is disabled; only expose port 5901 on a trusted network.\n' >&2
+    VNC_SECURITY_ARGS=(-SecurityTypes None)
+fi
 
 /usr/bin/Xtigervnc :1 \
     -localhost no \
     -rfbport "${VNC_PORT:-5901}" \
-    -SecurityTypes VncAuth \
-    -rfbauth "$PASSWORD_FILE" \
+    "${VNC_SECURITY_ARGS[@]}" \
     -geometry "${VNC_GEOMETRY:-1280x800}" \
     -depth 24 &
 VNC_PID=$!

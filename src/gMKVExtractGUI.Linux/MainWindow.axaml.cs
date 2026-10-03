@@ -76,6 +76,7 @@ public partial class MainWindow : Window
         }
         this.FindControl<ItemsControl>("SegmentList")!.ItemsSource = _inputFiles;
         ApplyLocalization();
+        UpdateOutputFolderControls();
 
         string[] existingPaths = (inputPaths ?? Array.Empty<string>()).Where(File.Exists).ToArray();
         if (existingPaths.Length > 0)
@@ -780,8 +781,22 @@ public partial class MainWindow : Window
         string? configuredInputPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_INPUT_PATH");
         if (!string.IsNullOrWhiteSpace(configuredInputPath) && Directory.Exists(configuredInputPath))
         {
-            pickerOptions.SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(
-                new UriBuilder { Scheme = Uri.UriSchemeFile, Path = Path.GetFullPath(configuredInputPath) }.Uri);
+            string fullInputPath = Path.GetFullPath(configuredInputPath);
+            Uri inputFolderUri = new UriBuilder
+            {
+                Scheme = Uri.UriSchemeFile,
+                Host = string.Empty,
+                Path = Path.TrimEndingDirectorySeparator(fullInputPath) + Path.DirectorySeparatorChar
+            }.Uri;
+            IStorageFolder? inputFolder = await StorageProvider.TryGetFolderFromPathAsync(inputFolderUri);
+            if (inputFolder != null)
+            {
+                pickerOptions.SuggestedStartLocation = inputFolder;
+            }
+            else
+            {
+                Debug.WriteLine($"Could not resolve input picker start directory '{inputFolderUri}'.");
+            }
         }
 
         IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(pickerOptions);
@@ -820,6 +835,9 @@ public partial class MainWindow : Window
     }
 
     private void UseInputFolderCheckBox_IsCheckedChanged(object? sender, RoutedEventArgs e)
+        => UpdateOutputFolderControls();
+
+    private void UpdateOutputFolderControls()
     {
         bool useOutputFolder = this.FindControl<CheckBox>("UseInputFolderCheckBox")!.IsChecked != true;
         this.FindControl<TextBox>("OutputPathBox")!.IsEnabled = useOutputFolder;
