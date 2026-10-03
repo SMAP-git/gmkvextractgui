@@ -11,7 +11,7 @@
   <Project>https://github.com/SMAP-git/gmkvextractgui</Project>
   <Overview>Extract Matroska tracks and metadata in a TigerVNC desktop. Open the WebUI for browser access or connect with a native VNC client.</Overview>
   <Category>MediaApp:Video</Category>
-  <WebUI>http://[IP]:[PORT:6080]/vnc.html?autoconnect=true&amp;resize=remote</WebUI>
+  <WebUI>http://[IP]:[PORT:6080]/vnc.html?autoconnect=true&amp;resize=scale</WebUI>
   <TemplateURL>https://github.com/SMAP-git/gmkvextractgui/blob/main/packaging/docker/unraid-template.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/SMAP-git/gmkvextractgui/main/packaging/gMKVExtractGUI.svg</Icon>
   <ExtraParams>--user=99:100</ExtraParams>
