@@ -22,7 +22,9 @@ The Flatpak uses the host's MKVToolNix installation through `flatpak-spawn`; ins
 
 ## Docker
 
-Build the Debian package, then run `bash packaging/docker/build-docker.sh` to create the local `gmkvextractgui:1.0` image. See [packaging/docker/README.md](packaging/docker/README.md) for X11 display and file-mount instructions.
+Build the Debian package, then run `bash packaging/docker/build-docker.sh` to create the local `gmkvextractgui:1.0` image. To publish the image to GitHub Container Registry, run `gh workflow run publish-docker.yml --repo SMAP-git/gmkvextractgui -f version=1.0`.
+
+After the workflow succeeds, pull `ghcr.io/smap-git/gmkvextractgui:1.0`. See [packaging/docker/README.md](packaging/docker/README.md) for X11 display, file-mount, and container registry instructions.
 
 ## Build the application
 
