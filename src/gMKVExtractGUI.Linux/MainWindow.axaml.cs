@@ -767,7 +767,7 @@ public partial class MainWindow : Window
 
     private async Task SelectInputFilesAsync(bool append)
     {
-        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        var pickerOptions = new FilePickerOpenOptions
         {
             Title = T("input.selectFilesDialogTitle"),
             AllowMultiple = true,
@@ -776,7 +776,15 @@ public partial class MainWindow : Window
                 new FilePickerFileType(T("input.fileTypeMatroska")) { Patterns = new[] { "*.mkv", "*.mka", "*.mks" } },
                 new FilePickerFileType(T("input.fileTypeAll")) { Patterns = new[] { "*" } }
             }
-        });
+        };
+        string? configuredInputPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_INPUT_PATH");
+        if (!string.IsNullOrWhiteSpace(configuredInputPath) && Directory.Exists(configuredInputPath))
+        {
+            pickerOptions.SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(
+                new UriBuilder { Scheme = Uri.UriSchemeFile, Path = Path.GetFullPath(configuredInputPath) }.Uri);
+        }
+
+        IReadOnlyList<IStorageFile> files = await StorageProvider.OpenFilePickerAsync(pickerOptions);
 
         if (files.Count == 0)
         {
