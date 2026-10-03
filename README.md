@@ -20,6 +20,10 @@ The build scripts write packages to the local paths shown above. The `artifacts/
 
 The Flatpak uses the host's MKVToolNix installation through `flatpak-spawn`; install MKVToolNix on the host to analyze and extract files.
 
+## Docker
+
+Build the Debian package, then run `bash packaging/docker/build-docker.sh` to create the local `gmkvextractgui:1.0` image. See [packaging/docker/README.md](packaging/docker/README.md) for X11 display and file-mount instructions.
+
 ## Build the application
 
 From this directory, run:
