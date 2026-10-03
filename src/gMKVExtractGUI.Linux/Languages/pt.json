@@ -33,6 +33,8 @@
   "output.folderLabel": "Diretório de saída",
   "output.folderWatermark": "Escolha onde os ficheiros extraídos serão guardados",
   "output.chooseFolder": "Escolher pasta...",
+  "output.useInputFolder": "Usar pasta de entrada",
+   "output.useInputFolder": "Usar pasta de entrada",
   "output.selectFolderDialogTitle": "Escolher diretório de saída",
   "tool.pathLabel": "Caminho do MKVToolNix",
   "tool.pathDefault": "/usr/bin",

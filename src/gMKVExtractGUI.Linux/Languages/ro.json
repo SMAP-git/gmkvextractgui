@@ -33,6 +33,8 @@
  "output.folderLabel": "Dosar de ieșire",
  "output.folderWatermark": "Alegeți unde vor fi salvate fișierele extrase",
  "output.chooseFolder": "Alegeți dosarul...",
+"output.useInputFolder": "Folosește dosarul de intrare",
+ "output.useInputFolder": "Folosește dosarul de intrare",
  "output.selectFolderDialogTitle": "Alegeți dosarul de ieșire",
  "tool.pathLabel": "Calea MKVToolNix",
  "tool.pathDefault": "/usr/bin",

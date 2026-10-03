@@ -33,6 +33,8 @@
  "output.folderLabel": "輸出資料夾",
  "output.folderWatermark": "選擇擷取檔案的儲存位置",
  "output.chooseFolder": "選擇資料夾...",
+"output.useInputFolder": "使用輸入資料夾",
+ "output.useInputFolder": "使用輸入資料夾",
  "output.selectFolderDialogTitle": "選擇輸出資料夾",
  "tool.pathLabel": "MKVToolNix 路徑",
  "tool.pathDefault": "/usr/bin",

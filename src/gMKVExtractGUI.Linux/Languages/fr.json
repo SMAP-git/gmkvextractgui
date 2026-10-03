@@ -33,6 +33,8 @@
  "output.folderLabel": "Dossier de sortie",
  "output.folderWatermark": "Choisissez où les fichiers extraits seront enregistrés",
  "output.chooseFolder": "Choisir un dossier...",
+"output.useInputFolder": "Utiliser le dossier d'entrée",
+ "output.useInputFolder": "Utiliser le dossier d'entrée",
  "output.selectFolderDialogTitle": "Choisir le dossier de sortie",
  "tool.pathLabel": "Chemin MKVToolNix",
  "tool.pathDefault": "/usr/bin",

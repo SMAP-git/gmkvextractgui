@@ -33,6 +33,8 @@
  "output.folderLabel": "출력 폴더",
  "output.folderWatermark": "추출된 파일이 저장될 위치를 선택하세요",
  "output.chooseFolder": "폴더 선택...",
+"output.useInputFolder": "입력 폴더 사용",
+ "output.useInputFolder": "입력 폴더 사용",
  "output.selectFolderDialogTitle": "출력 폴더 선택",
  "tool.pathLabel": "MKVToolNix 경로",
  "tool.pathDefault": "/usr/bin",

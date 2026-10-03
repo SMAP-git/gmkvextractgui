@@ -33,6 +33,8 @@
  "output.folderLabel": "Φάκελος εξόδου",
  "output.folderWatermark": "Επιλέξτε πού θα αποθηκευτούν τα εξαγόμενα αρχεία",
  "output.chooseFolder": "Επιλογή φακέλου...",
+ "output.useInputFolder": "Χρήση φακέλου εισόδου",
+ "output.useInputFolder": "Χρήση φακέλου εισόδου",
  "output.selectFolderDialogTitle": "Επιλογή φακέλου εξόδου",
  "tool.pathLabel": "Διαδρομή MKVToolNix",
  "tool.pathDefault": "/usr/bin",

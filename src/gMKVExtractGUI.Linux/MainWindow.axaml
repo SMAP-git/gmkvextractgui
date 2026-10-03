@@ -106,7 +106,8 @@
 
       <TextBlock x:Name="OutputFolderLabel" Classes="field-label" Grid.Row="1" Text="Output folder" />
       <TextBox x:Name="OutputPathBox" Grid.Row="1" Grid.Column="1" Watermark="Choose where extracted files will be saved" />
-      <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Click="BrowseOutput_Click" Content="Choose folder..." />
+      <CheckBox x:Name="UseInputFolderCheckBox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" IsCheckedChanged="UseInputFolderCheckBox_IsCheckedChanged" />
+      <Button x:Name="BrowseOutputButton" Grid.Row="1" Grid.Column="3" Click="BrowseOutput_Click" Content="Choose folder..." />
 
       <TextBlock x:Name="ToolPathLabel" Classes="field-label" Grid.Row="2" Text="MKVToolNix path" />
       <TextBox x:Name="ToolPathBox" Grid.Row="2" Grid.Column="1" Text="/usr/bin" />

@@ -134,6 +134,7 @@ public partial class MainWindow : Window
         this.FindControl<Button>("BrowseInputButton")!.Content = T("input.browse");
         this.FindControl<TextBlock>("OutputFolderLabel")!.Text = T("output.folderLabel");
         this.FindControl<TextBox>("OutputPathBox")!.Watermark = T("output.folderWatermark");
+        this.FindControl<CheckBox>("UseInputFolderCheckBox")!.Content = T("output.useInputFolder");
         this.FindControl<Button>("BrowseOutputButton")!.Content = T("output.chooseFolder");
         this.FindControl<TextBlock>("ToolPathLabel")!.Text = T("tool.pathLabel");
         this.FindControl<TextBlock>("ToolPathDescription")!.Text = T("tool.pathDescription");
@@ -810,6 +811,13 @@ public partial class MainWindow : Window
         }
     }
 
+    private void UseInputFolderCheckBox_IsCheckedChanged(object? sender, RoutedEventArgs e)
+    {
+        bool useOutputFolder = this.FindControl<CheckBox>("UseInputFolderCheckBox")!.IsChecked != true;
+        this.FindControl<TextBox>("OutputPathBox")!.IsEnabled = useOutputFolder;
+        this.FindControl<Button>("BrowseOutputButton")!.IsEnabled = useOutputFolder;
+    }
+
     private async Task AnalyzeInputFilesAsync()
     {
         if (_isAnalyzing)
@@ -889,6 +897,7 @@ public partial class MainWindow : Window
     {
         string[] inputPaths = GetInputPaths();
         string outputPath = this.FindControl<TextBox>("OutputPathBox")!.Text?.Trim() ?? "";
+        bool useInputFolder = this.FindControl<CheckBox>("UseInputFolderCheckBox")!.IsChecked == true;
         string toolPath = this.FindControl<TextBox>("ToolPathBox")!.Text?.Trim() ?? "";
         if (inputPaths.Length == 0 || inputPaths.Any(inputPath => !File.Exists(inputPath)) || !Directory.Exists(toolPath))
         {
@@ -896,7 +905,7 @@ public partial class MainWindow : Window
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(outputPath))
+        if (!useInputFolder && string.IsNullOrWhiteSpace(outputPath))
         {
             SetStatus(T("status.chooseOutputFolder"));
             return;
@@ -910,7 +919,6 @@ public partial class MainWindow : Window
 
         try
         {
-            Directory.CreateDirectory(outputPath);
             List<(string InputPath, List<gMKVSegment> Segments)> extractionFiles = inputPaths
                 .Select(inputPath => (
                     InputPath: inputPath,
@@ -945,6 +953,14 @@ public partial class MainWindow : Window
             for (int i = 0; i < extractionFiles.Count; i++)
             {
                 (string inputPath, List<gMKVSegment> selected) = extractionFiles[i];
+                string extractionOutputPath = useInputFolder
+                    ? Path.GetDirectoryName(inputPath) ?? ""
+                    : outputPath;
+                if (string.IsNullOrWhiteSpace(extractionOutputPath))
+                {
+                    throw new DirectoryNotFoundException(T("status.chooseOutputFolder"));
+                }
+                Directory.CreateDirectory(extractionOutputPath);
                 activeExtractionFile = i;
                 this.FindControl<TextBlock>("FileProgressLabel")!.Text = T("progress.fileForInput", ("fileName", Path.GetFileName(inputPath)));
                 UpdateExtractionProgress(0);
@@ -953,7 +969,7 @@ public partial class MainWindow : Window
                 {
                     MKVFile = inputPath,
                     MKVSegmentsToExtract = selected,
-                    OutputDirectory = outputPath,
+                    OutputDirectory = extractionOutputPath,
                     ChapterType = (MkvChapterTypes)this.FindControl<ComboBox>("ChapterFormatBox")!.SelectedIndex,
                     FilenamePatterns = CreateFilenamePatterns(),
                     DisableBomForTextFiles = _disableBomForTextFiles,

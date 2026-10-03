@@ -33,6 +33,8 @@
  "output.folderLabel": "出力フォルダー",
  "output.folderWatermark": "抽出したファイルの保存先を選択してください",
  "output.chooseFolder": "フォルダーを選択...",
+"output.useInputFolder": "入力フォルダーを使用",
+ "output.useInputFolder": "入力フォルダーを使用",
  "output.selectFolderDialogTitle": "出力フォルダーの選択",
  "tool.pathLabel": "MKVToolNixのパス",
  "tool.pathDefault": "/usr/bin",

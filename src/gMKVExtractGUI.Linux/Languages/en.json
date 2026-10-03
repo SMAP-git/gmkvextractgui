@@ -33,6 +33,8 @@
   "output.folderLabel": "Output folder",
   "output.folderWatermark": "Choose where extracted files will be saved",
   "output.chooseFolder": "Choose folder...",
+  "output.useInputFolder": "Use input folder",
+  "output.useInputFolder": "Use input folder",
   "output.selectFolderDialogTitle": "Choose output folder",
   "tool.pathLabel": "MKVToolNix path",
   "tool.pathDefault": "/usr/bin",

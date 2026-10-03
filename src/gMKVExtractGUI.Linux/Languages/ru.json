@@ -33,6 +33,8 @@
  "output.folderLabel": "Папка вывода",
  "output.folderWatermark": "Выберите, где будут сохранены извлеченные файлы",
  "output.chooseFolder": "Выбрать папку...",
+"output.useInputFolder": "Сохранять рядом с исходным файлом",
+ "output.useInputFolder": "Сохранять рядом с исходным файлом",
  "output.selectFolderDialogTitle": "Выбор папки вывода",
  "tool.pathLabel": "Путь к MKVToolNix",
  "tool.pathDefault": "/usr/bin",

@@ -33,6 +33,8 @@
  "output.folderLabel": "Çıktı klasörü",
  "output.folderWatermark": "Çıkarılan dosyaların kaydedileceği yeri seçin",
  "output.chooseFolder": "Klasör seç...",
+"output.useInputFolder": "Girdi klasörünü kullan",
+ "output.useInputFolder": "Girdi klasörünü kullan",
  "output.selectFolderDialogTitle": "Çıktı klasörünü seçin",
  "tool.pathLabel": "MKVToolNix yolu",
  "tool.pathDefault": "/usr/bin",

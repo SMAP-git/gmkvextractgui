@@ -33,6 +33,8 @@
  "output.folderLabel": "आउटपुट फ़ोल्डर",
  "output.folderWatermark": "चुनें कि निकाली गई फ़ाइलें कहाँ सहेजी जाएँगी",
  "output.chooseFolder": "फ़ोल्डर चुनें...",
+"output.useInputFolder": "इनपुट फ़ोल्डर का उपयोग करें",
+ "output.useInputFolder": "इनपुट फ़ोल्डर का उपयोग करें",
  "output.selectFolderDialogTitle": "आउटपुट फ़ोल्डर चुनें",
  "tool.pathLabel": "MKVToolNix पथ",
  "tool.pathDefault": "/usr/bin",

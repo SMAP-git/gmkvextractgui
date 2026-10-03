@@ -33,6 +33,8 @@
  "output.folderLabel": "Folder wyjściowy",
  "output.folderWatermark": "Wybierz, gdzie zapisane zostaną wyodrębnione pliki",
  "output.chooseFolder": "Wybierz folder...",
+"output.useInputFolder": "Użyj folderu wejściowego",
+ "output.useInputFolder": "Użyj folderu wejściowego",
  "output.selectFolderDialogTitle": "Wybierz folder wyjściowy",
  "tool.pathLabel": "Ścieżka MKVToolNix",
  "tool.pathDefault": "/usr/bin",

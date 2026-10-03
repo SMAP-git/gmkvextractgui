@@ -33,6 +33,8 @@
  "output.folderLabel": "Väljundkaust",
  "output.folderWatermark": "Vali, kuhu eraldatud failid salvestatakse",
  "output.chooseFolder": "Vali kaust...",
+"output.useInputFolder": "Kasuta sisendkausta",
+ "output.useInputFolder": "Kasuta sisendkausta",
  "output.selectFolderDialogTitle": "Vali väljundkaust",
  "tool.pathLabel": "MKVToolNixi tee",
  "tool.pathDefault": "/usr/bin",

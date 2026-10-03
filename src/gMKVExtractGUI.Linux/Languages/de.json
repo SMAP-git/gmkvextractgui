@@ -33,6 +33,8 @@
   "output.folderLabel": "Ausgabeordner",
   "output.folderWatermark": "Auswählen, wo extrahierte Dateien gespeichert werden",
   "output.chooseFolder": "Ordner auswählen...",
+  "output.useInputFolder": "Eingabeordner verwenden",
+  "output.useInputFolder": "Eingabeordner verwenden",
   "output.selectFolderDialogTitle": "Ausgabeordner auswählen",
   "tool.pathLabel": "MKVToolNix-Pfad",
   "tool.pathDefault": "/usr/bin",

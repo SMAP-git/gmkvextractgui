@@ -33,6 +33,8 @@
  "output.folderLabel": "Kimeneti mappa",
  "output.folderWatermark": "Válassza ki, hová kerüljenek a kibontott fájlok",
  "output.chooseFolder": "Mappa kiválasztása...",
+"output.useInputFolder": "Bemeneti mappa használata",
+ "output.useInputFolder": "Bemeneti mappa használata",
  "output.selectFolderDialogTitle": "Kimeneti mappa kiválasztása",
  "tool.pathLabel": "MKVToolNix elérési út",
  "tool.pathDefault": "/usr/bin",

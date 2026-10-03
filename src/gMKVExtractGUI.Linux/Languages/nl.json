@@ -33,6 +33,8 @@
  "output.folderLabel": "Uitvoermap",
  "output.folderWatermark": "Kies waar geëxtraheerde bestanden worden opgeslagen",
  "output.chooseFolder": "Map kiezen...",
+"output.useInputFolder": "Invoermap gebruiken",
+ "output.useInputFolder": "Invoermap gebruiken",
  "output.selectFolderDialogTitle": "Uitvoermap kiezen",
  "tool.pathLabel": "MKVToolNix-pad",
  "tool.pathDefault": "/usr/bin",

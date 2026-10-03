@@ -40,10 +40,10 @@ Use the [Unraid container template](unraid-template.xml), or enter the same valu
 | VNC password | 6-8 characters |
 | Container `HOME` | `/config` |
 | App config path | `/mnt/user/appdata/gMKVExtractGUI` to `/config` |
-| Media path | `/mnt/user/Media` to `/media` (read-only) |
+| Media path | `/mnt/user/Media` to `/media` (read/write for input-folder mode) |
 | Extraction path | `/mnt/user/Media/Extracted` to `/output` (read/write) |
 
-Start the container and connect a VNC client to `<unraid-ip>:5901` using the configured password. Extraction defaults to `/output`; ensure its host directory is writable by UID `99`, GID `100` (`nobody:users`).
+Start the container and connect a VNC client to `<unraid-ip>:5901` using the configured password. Extraction defaults to `/output`. Enable **Use input folder** to save beside each source; this writes to `/media`, so its mount must be read/write. Ensure the output directory is writable by UID `99`, GID `100` (`nobody:users`).
 
 Create a VNC password, input directory, and extraction directory, then start the container with its VNC port bound to localhost:
 
@@ -60,4 +60,4 @@ docker run --rm -d --name gmkvextractgui-vnc \
   ghcr.io/smap-git/gmkvextractgui:1.0
 ```
 
-Connect a VNC client to `127.0.0.1:5901` and enter the value of `$VNC_PASSWORD`. The VNC password must be 6-8 characters because TigerVNC's VncAuth protocol uses at most 8. Select input files under `/media` and use `/output` as the extraction folder. Stop the container with `docker stop gmkvextractgui-vnc`.
+Connect a VNC client to `127.0.0.1:5901` and enter the value of `$VNC_PASSWORD`. The VNC password must be 6-8 characters because TigerVNC's VncAuth protocol uses at most 8. Select input files under `/media`; extraction defaults to `/output`. To use the input-folder option, change the `/media` mount from `:ro` to `:rw`. Stop the container with `docker stop gmkvextractgui-vnc`.
