@@ -12,8 +12,7 @@ RUN sed -i 's/^Components: main$/Components: main universe/' /etc/apt/sources.li
     && rm -f /tmp/gmkvextractgui.deb \
     && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd --gid 1000 app \
-    && useradd --uid 1000 --gid 1000 --create-home --shell /usr/sbin/nologin app
+RUN useradd --create-home --shell /usr/sbin/nologin app
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
