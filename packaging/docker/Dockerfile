@@ -21,7 +21,8 @@ RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
 
 ENV HOME=/home/app \
     VNC_GEOMETRY=1280x800 \
-    VNC_PORT=5901
+    VNC_PORT=5901 \
+    GMKVEXTRACTGUI_DEFAULT_OUTPUT_PATH=/output
 
 EXPOSE 5901/tcp
 USER 1000:1000

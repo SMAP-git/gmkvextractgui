@@ -64,6 +64,11 @@ public partial class MainWindow : Window
         _filenamePatterns = CreateDefaultFilenamePatterns();
         Opened += MainWindow_Opened;
         DataContext = this;
+        string? configuredOutputPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_OUTPUT_PATH");
+        if (!string.IsNullOrWhiteSpace(configuredOutputPath))
+        {
+            this.FindControl<TextBox>("OutputPathBox")!.Text = configuredOutputPath;
+        }
         string? configuredToolPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_TOOL_PATH");
         if (!string.IsNullOrWhiteSpace(configuredToolPath))
         {
@@ -76,7 +81,11 @@ public partial class MainWindow : Window
         if (existingPaths.Length > 0)
         {
             this.FindControl<TextBox>("InputPathBox")!.Text = string.Join(Environment.NewLine, existingPaths);
-            this.FindControl<TextBox>("OutputPathBox")!.Text = Path.GetDirectoryName(existingPaths[0]) ?? "";
+            TextBox outputPathBox = this.FindControl<TextBox>("OutputPathBox")!;
+            if (string.IsNullOrWhiteSpace(outputPathBox.Text))
+            {
+                outputPathBox.Text = Path.GetDirectoryName(existingPaths[0]) ?? "";
+            }
             SetStatus(T("status.analyzingInput"));
         }
     }
