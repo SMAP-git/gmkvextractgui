@@ -4,12 +4,13 @@ set -euo pipefail
 RUNTIME_DIR="$(mktemp -d /tmp/gmkvextractgui-vnc.XXXXXX)"
 PASSWORD_FILE="$RUNTIME_DIR/passwd"
 VNC_PID=""
+WEBSOCKIFY_PID=""
 OPENBOX_PID=""
 APP_PID=""
 VNC_SECURITY_ARGS=()
 
 cleanup() {
-    for pid in "$APP_PID" "$OPENBOX_PID" "$VNC_PID"; do
+    for pid in "$APP_PID" "$OPENBOX_PID" "$WEBSOCKIFY_PID" "$VNC_PID"; do
         if [[ -n "$pid" ]]; then
             kill "$pid" 2>/dev/null || true
         fi
@@ -59,8 +60,11 @@ if [[ ! -S /tmp/.X11-unix/X1 ]]; then
     exit 1
 fi
 
+websockify --web=/usr/share/novnc "${NOVNC_PORT:-6080}" "127.0.0.1:${VNC_PORT:-5901}" &
+WEBSOCKIFY_PID=$!
+
 openbox-session &
 OPENBOX_PID=$!
 /usr/bin/gMKVExtractGUI &
 APP_PID=$!
-wait -n "$VNC_PID" "$OPENBOX_PID" "$APP_PID"
+wait -n "$VNC_PID" "$WEBSOCKIFY_PID" "$OPENBOX_PID" "$APP_PID"

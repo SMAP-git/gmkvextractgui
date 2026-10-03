@@ -22,7 +22,7 @@ The Flatpak uses the host's MKVToolNix installation through `flatpak-spawn`; ins
 
 ## Docker
 
-Build the Debian package, then run `bash packaging/docker/build-docker.sh` to create the local `gmkvextractgui:1.0` image with TigerVNC on port `5901`. VNC authentication is optional; no-password access is unsafe on untrusted networks. The **Use input folder** option is enabled by default and requires a read/write media mount. To publish the image to GitHub Container Registry, run `gh workflow run publish-docker.yml --repo SMAP-git/gmkvextractgui -f version=1.0`. For Unraid, use the [container template](packaging/docker/unraid-template.xml) and see [the Docker guide](packaging/docker/README.md).
+Build the Debian package, then run `bash packaging/docker/build-docker.sh` to create the local `gmkvextractgui:1.0` image with TigerVNC and a browser WebUI on port `6080`. VNC authentication is optional; no-password access is unsafe on untrusted networks. The **Use input folder** option is enabled by default and requires a read/write media mount. To publish the image to GitHub Container Registry, run `gh workflow run publish-docker.yml --repo SMAP-git/gmkvextractgui -f version=1.0`. For Unraid, use the [container template](packaging/docker/unraid-template.xml) and see [the Docker guide](packaging/docker/README.md).
 
 After the workflow succeeds, pull `ghcr.io/smap-git/gmkvextractgui:1.0`. See [packaging/docker/README.md](packaging/docker/README.md) for X11 display, file-mount, and container registry instructions.
 

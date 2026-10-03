@@ -7,7 +7,7 @@ bash packaging/debian/build-deb.sh
 bash packaging/docker/build-docker.sh
 ```
 
-The image installs the `.deb` and its dependencies, including MKVToolNix, then starts the GUI in a TigerVNC desktop session. The container runs as a non-root user. The current user needs access to the Docker daemon; Docker group membership grants root-equivalent privileges.
+The image installs the `.deb` and its dependencies, including MKVToolNix, then starts the GUI in a TigerVNC desktop session. It serves noVNC/Websockify on port `6080` for browser access and raw VNC on port `5901` for native clients. The container runs as a non-root user. The current user needs access to the Docker daemon; Docker group membership grants root-equivalent privileges.
 
 ## Publish to GitHub Container Registry
 
@@ -36,14 +36,15 @@ Use the [Unraid container template](unraid-template.xml), or enter the same valu
 | Repository | `ghcr.io/smap-git/gmkvextractgui:1.0` |
 | Network type | `bridge` |
 | Extra parameters | `--user=99:100` (`nobody:users`) |
-| VNC port | Host `5901` to container `5901/tcp` |
+| VNC WebUI port | Host `6080` to container `6080/tcp`; the WebUI opens noVNC |
+| Native VNC port | Host `5901` to container `5901/tcp` |
 | VNC password | Optional; 6-8 characters when set. Blank disables authentication. |
 | Container `HOME` | `/config` |
 | App config path | `/mnt/user/appdata/gMKVExtractGUI` to `/config` |
 | Media path | `/mnt/user/Media` to `/media` (read/write for input-folder mode) |
 | Extraction path | `/mnt/user/Media/Extracted` to `/output` (read/write) |
 
-Start the container and connect a VNC client to `<unraid-ip>:5901`. Set a 6-8 character password for VNC authentication, or leave it blank to disable authentication. No-password access is unsafe on an untrusted network. The input file picker opens in `/media`, the **Use input folder** option is enabled by default, and extraction otherwise uses `/output`. Input-folder mode writes to `/media`, so its mount must be read/write. Ensure both writable directories are writable by UID `99`, GID `100` (`nobody:users`).
+Click **WebUI** or browse to `http://<unraid-ip>:6080/vnc.html?autoconnect=true&resize=remote` for browser access; native VNC clients can connect to `<unraid-ip>:5901`. Set a 6-8 character password for VNC authentication, or leave it blank to disable authentication. No-password access is unsafe on an untrusted network. The input file picker opens in `/media`, the **Use input folder** option is enabled by default, and extraction otherwise uses `/output`. Input-folder mode writes to `/media`, so its mount must be read/write. Ensure both writable directories are writable by UID `99`, GID `100` (`nobody:users`).
 
 Create a VNC password, input directory, and extraction directory, then start the container with its VNC port bound to localhost:
 
@@ -55,10 +56,11 @@ docker run --rm -d --name gmkvextractgui-vnc \
   --user "$(id -u):$(id -g)" \
   --env HOME=/tmp \
   --env "VNC_PASSWORD=$VNC_PASSWORD" \
+  --publish 127.0.0.1:6080:6080 \
   --publish 127.0.0.1:5901:5901 \
   --volume "$HOME/Videos:/media:ro" \
   --volume "$HOME/Videos/gmkvextract-output:/output:rw" \
   ghcr.io/smap-git/gmkvextractgui:1.0
 ```
 
-Connect a VNC client to `127.0.0.1:5901` and enter the password if set. TigerVNC VncAuth passwords must be 6-8 characters. Without a password, anyone who can reach the port can control the desktop; bind it to localhost or use a trusted network. The picker opens in `/media`; input-folder mode is enabled by default and requires the `/media` mount to be `:rw`. Stop the container with `docker stop gmkvextractgui-vnc`.
+Open `http://127.0.0.1:6080/vnc.html?autoconnect=true&resize=remote` in a browser or connect a native VNC client to `127.0.0.1:5901`. Enter the password if set. TigerVNC VncAuth passwords must be 6-8 characters. Without a password, anyone who can reach the port can control the desktop; bind it to localhost or use a trusted network. The picker opens in `/media`; input-folder mode is enabled by default and requires the `/media` mount to be `:rw`. Stop the container with `docker stop gmkvextractgui-vnc`.

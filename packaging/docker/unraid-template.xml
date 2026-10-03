@@ -9,9 +9,9 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/SMAP-git/gmkvextractgui/issues</Support>
   <Project>https://github.com/SMAP-git/gmkvextractgui</Project>
-  <Overview>Extract Matroska tracks and metadata in a TigerVNC desktop. Connect to the mapped VNC port with a VNC client.</Overview>
+  <Overview>Extract Matroska tracks and metadata in a TigerVNC desktop. Open the WebUI for browser access or connect with a native VNC client.</Overview>
   <Category>MediaApp:Video</Category>
-  <WebUI />
+  <WebUI>http://[IP]:[PORT:6080]/vnc.html?autoconnect=true&amp;resize=remote</WebUI>
   <TemplateURL>https://github.com/SMAP-git/gmkvextractgui/blob/main/packaging/docker/unraid-template.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/SMAP-git/gmkvextractgui/main/packaging/gMKVExtractGUI.svg</Icon>
   <ExtraParams>--user=99:100</ExtraParams>
@@ -22,6 +22,7 @@
   <DonateLink />
   <Requires />
   <Config Name="VNC Port" Target="5901" Default="5901" Mode="tcp" Description="VNC server port. Connect with a VNC client to the Unraid host on this port." Type="Port" Display="always" Required="true" Mask="false">5901</Config>
+  <Config Name="VNC WebUI Port" Target="6080" Default="6080" Mode="tcp" Description="noVNC browser interface. Open the container WebUI to connect." Type="Port" Display="always" Required="true" Mask="false">6080</Config>
   <Config Name="VNC Password" Target="VNC_PASSWORD" Default="" Mode="" Description="Optional. Leave blank to disable VNC authentication; only do this on a trusted network. Passwords must be 6-8 characters." Type="Variable" Display="always" Required="false" Mask="true"></Config>
   <Config Name="VNC Geometry" Target="VNC_GEOMETRY" Default="1280x800" Mode="" Description="Virtual desktop resolution." Type="Variable" Display="advanced" Required="true" Mask="false">1280x800</Config>
   <Config Name="Home / app config" Target="/config" Default="/mnt/user/appdata/gMKVExtractGUI" Mode="rw" Description="Persists language preference and app configuration." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/gMKVExtractGUI</Config>
