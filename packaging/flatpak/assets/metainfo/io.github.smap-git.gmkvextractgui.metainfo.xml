@@ -20,6 +20,7 @@
     <binary>gmkvextractgui</binary>
   </provides>
   <releases>
+    <release version="1.0.1" date="2026-10-04" />
     <release version="1.0" date="2026-10-03" />
   </releases>
 </component>
