@@ -21,7 +21,7 @@ package() {
     install -d "$pkgdir/opt/gmkvextractgui" \
         "$pkgdir/usr/bin" \
         "$pkgdir/usr/share/applications" \
-        "$pkgdir/usr/share/icons/hicolor/scalable/apps"
+        "$pkgdir/usr/share/icons/hicolor/256x256/apps"
     cp -a "$srcdir/publish/." "$pkgdir/opt/gmkvextractgui/"
     printf '%s\n' '#!/bin/sh' 'exec /opt/gmkvextractgui/gMKVExtractGUI "$@"' \
         > "$pkgdir/usr/bin/gMKVExtractGUI"
@@ -29,8 +29,8 @@ package() {
         "$pkgdir/opt/gmkvextractgui/gMKVExtractGUI"
     install -m 0644 "$srcdir/gMKVExtractGUI_Linux_Version/packaging/gmkvextractgui.desktop" \
         "$pkgdir/usr/share/applications/gmkvextractgui.desktop"
-    install -m 0644 "$srcdir/gMKVExtractGUI_Linux_Version/packaging/gMKVExtractGUI.svg" \
-        "$pkgdir/usr/share/icons/hicolor/scalable/apps/gMKVExtractGUI.svg"
+    install -m 0644 "$srcdir/gMKVExtractGUI_Linux_Version/packaging/docker/unraid-icon.png" \
+        "$pkgdir/usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png"
     install -Dm644 "$srcdir/gMKVExtractGUI_Linux_Version/LICENSE" \
         "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

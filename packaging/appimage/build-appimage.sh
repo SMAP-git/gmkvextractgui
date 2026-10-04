@@ -30,13 +30,13 @@ dotnet publish "$ROOT_DIR/src/gMKVExtractGUI.Linux/gMKVExtractGUI.Linux.csproj" 
     --self-contained true \
     --output "$APP_DIR/usr/bin"
 
-install -d "$APP_DIR/usr/share/applications" "$APP_DIR/usr/share/icons/hicolor/scalable/apps"
+install -d "$APP_DIR/usr/share/applications" "$APP_DIR/usr/share/icons/hicolor/256x256/apps"
 install -m 0644 "$ROOT_DIR/packaging/appimage/gMKVExtractGUI.desktop" "$APP_DIR/gMKVExtractGUI.desktop"
 install -m 0644 "$ROOT_DIR/packaging/appimage/gMKVExtractGUI.desktop" \
     "$APP_DIR/usr/share/applications/gMKVExtractGUI.desktop"
-install -m 0644 "$ROOT_DIR/packaging/appimage/gMKVExtractGUI.svg" "$APP_DIR/gMKVExtractGUI.svg"
-install -m 0644 "$ROOT_DIR/packaging/appimage/gMKVExtractGUI.svg" \
-    "$APP_DIR/usr/share/icons/hicolor/scalable/apps/gMKVExtractGUI.svg"
+install -m 0644 "$ROOT_DIR/packaging/docker/unraid-icon.png" "$APP_DIR/gMKVExtractGUI.png"
+install -m 0644 "$ROOT_DIR/packaging/docker/unraid-icon.png" \
+    "$APP_DIR/usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png"
 
 cat > "$APP_DIR/AppRun" <<'EOF'
 #!/bin/sh
@@ -46,7 +46,7 @@ export PATH="$APPDIR/usr/bin:$PATH"
 exec "$APPDIR/usr/bin/gMKVExtractGUI" "$@"
 EOF
 chmod 0755 "$APP_DIR/AppRun" "$APP_DIR/usr/bin/gMKVExtractGUI"
-ln -sf gMKVExtractGUI.svg "$APP_DIR/.DirIcon"
+ln -sf gMKVExtractGUI.png "$APP_DIR/.DirIcon"
 
 mkdir -p "$OUTPUT_DIR"
 if [[ "$APPIMAGETOOL" == *.AppImage ]]; then

@@ -34,7 +34,7 @@ mkdir -p "$STAGE_DIR" "$OUTPUT_DIR"
 trap 'rm -rf "$STAGE_DIR" "$BUILD_DIR"' EXIT
 mkdir -p "$STAGE_DIR/publish"
 cp -a "$FLATPAK_DIR/assets/." "$STAGE_DIR/"
-cp "$ROOT_DIR/packaging/gMKVExtractGUI.svg" "$STAGE_DIR/icon.svg"
+cp "$ROOT_DIR/packaging/docker/unraid-icon.png" "$STAGE_DIR/icon.png"
 
 dotnet publish "$ROOT_DIR/src/gMKVExtractGUI.Linux/gMKVExtractGUI.Linux.csproj" \
     --configuration Release \

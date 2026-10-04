@@ -29,7 +29,7 @@ mkdir -p "$RPM_TOPDIR/BUILD" "$RPM_TOPDIR/BUILDROOT" "$RPM_TOPDIR/RPMS" \
 tar -czf "$RPM_TOPDIR/SOURCES/$SOURCE_NAME" \
     --exclude='*/bin' --exclude='*/obj' --exclude='*/artifacts' \
     -C "$ROOT_DIR" \
-    src LICENSE Directory.Packages.props packaging/gmkvextractgui.desktop packaging/gMKVExtractGUI.svg
+    src LICENSE Directory.Packages.props packaging/gmkvextractgui.desktop packaging/docker/unraid-icon.png
 cp "$ROOT_DIR/packaging/fedora/gmkvextractgui.spec" "$RPM_TOPDIR/SPECS/"
 
 rpmbuild -bb \

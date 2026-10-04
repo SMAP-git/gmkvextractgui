@@ -34,7 +34,7 @@ dotnet publish src/gMKVExtractGUI.Linux/gMKVExtractGUI.Linux.csproj \
 install -d %{buildroot}/opt/gmkvextractgui \
     %{buildroot}/usr/bin \
     %{buildroot}/usr/share/applications \
-    %{buildroot}/usr/share/icons/hicolor/scalable/apps
+    %{buildroot}/usr/share/icons/hicolor/256x256/apps
 cp -a publish/. %{buildroot}/opt/gmkvextractgui/
 printf '%s\n' '#!/bin/sh' 'exec /opt/gmkvextractgui/gMKVExtractGUI "$@"' \
     > %{buildroot}/usr/bin/gMKVExtractGUI
@@ -42,15 +42,15 @@ chmod 0755 %{buildroot}/usr/bin/gMKVExtractGUI \
     %{buildroot}/opt/gmkvextractgui/gMKVExtractGUI
 install -m 0644 packaging/gmkvextractgui.desktop \
     %{buildroot}/usr/share/applications/gmkvextractgui.desktop
-install -m 0644 packaging/gMKVExtractGUI.svg \
-    %{buildroot}/usr/share/icons/hicolor/scalable/apps/gMKVExtractGUI.svg
+install -m 0644 packaging/docker/unraid-icon.png \
+    %{buildroot}/usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png
 
 %files
 %license LICENSE
 /opt/gmkvextractgui
 /usr/bin/gMKVExtractGUI
 /usr/share/applications/gmkvextractgui.desktop
-/usr/share/icons/hicolor/scalable/apps/gMKVExtractGUI.svg
+/usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png
 
 %changelog
 * Wed Sep 30 2026 gMKVExtractGUI contributors - 1.0-1

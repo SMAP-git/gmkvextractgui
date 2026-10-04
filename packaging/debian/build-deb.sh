@@ -32,14 +32,14 @@ install -d "$PACKAGE_ROOT/DEBIAN" \
     "$PACKAGE_ROOT/usr/lib/gmkvextractgui" \
     "$PACKAGE_ROOT/usr/bin" \
     "$PACKAGE_ROOT/usr/share/applications" \
-    "$PACKAGE_ROOT/usr/share/icons/hicolor/scalable/apps" \
+    "$PACKAGE_ROOT/usr/share/icons/hicolor/256x256/apps" \
     "$PACKAGE_ROOT/usr/share/doc/gmkvextractgui"
 cp -a "$PUBLISH_DIR/." "$PACKAGE_ROOT/usr/lib/gmkvextractgui/"
 install -m 0644 "$ROOT_DIR/LICENSE" "$PACKAGE_ROOT/usr/share/doc/gmkvextractgui/copyright"
 install -m 0644 "$ROOT_DIR/packaging/gmkvextractgui.desktop" \
     "$PACKAGE_ROOT/usr/share/applications/gmkvextractgui.desktop"
-install -m 0644 "$ROOT_DIR/packaging/gMKVExtractGUI.svg" \
-    "$PACKAGE_ROOT/usr/share/icons/hicolor/scalable/apps/gMKVExtractGUI.svg"
+install -m 0644 "$ROOT_DIR/packaging/docker/unraid-icon.png" \
+    "$PACKAGE_ROOT/usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png"
 
 printf '%s\n' '#!/bin/sh' 'exec /usr/lib/gmkvextractgui/gMKVExtractGUI "$@"' \
     > "$PACKAGE_ROOT/usr/bin/gMKVExtractGUI"

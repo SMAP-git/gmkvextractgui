@@ -23,7 +23,7 @@ modules:
       - install -Dm755 tool-wrappers/mkvextract /app/bin/mkvextract
       - install -Dm644 desktop/io.github.smap-git.gmkvextractgui.desktop /app/share/applications/io.github.smapgit.gmkvextractgui.desktop
       - install -Dm644 metainfo/io.github.smap-git.gmkvextractgui.metainfo.xml /app/share/metainfo/io.github.smapgit.gmkvextractgui.metainfo.xml
-      - install -Dm644 icon.svg /app/share/icons/hicolor/scalable/apps/io.github.smapgit.gmkvextractgui.svg
+      - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.smapgit.gmkvextractgui.png
     sources:
       - type: dir
         path: .build-input
