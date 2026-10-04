@@ -13,7 +13,7 @@
   <Category>MediaApp:Video</Category>
   <WebUI>http://[IP]:[PORT:6080]/vnc.html?autoconnect=true&amp;resize=scale</WebUI>
   <TemplateURL>https://github.com/SMAP-git/gmkvextractgui/blob/main/packaging/docker/unraid-template.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/SMAP-git/gmkvextractgui/main/packaging/gMKVExtractGUI.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/SMAP-git/gmkvextractgui/main/packaging/docker/unraid-icon.png</Icon>
   <ExtraParams>--user=99:100</ExtraParams>
   <PostArgs />
   <CPUset />
