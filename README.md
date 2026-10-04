@@ -4,6 +4,8 @@ This directory is a standalone Linux-only edition of gMKVExtractGUI. It contains
 
 The application bundles the .NET runtime in its packages. MKVToolNix and the host's Avalonia/X11 system libraries are installed as package dependencies.
 
+![gMKVExtractGUI Linux screenshot](docs/images/gmkvextractgui.png)
+
 ## Build packages
 
 Build each package on its target Linux distribution. All builds target x86_64 Linux.
