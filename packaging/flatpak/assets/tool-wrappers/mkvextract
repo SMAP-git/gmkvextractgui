@@ -1,2 +1,4 @@
 #!/bin/sh
-exec flatpak-spawn --host /usr/bin/mkvextract "$@"
+MKVTOOLNIX_DIR=/app/lib/mkvtoolnix
+export LD_LIBRARY_PATH="$MKVTOOLNIX_DIR/usr/lib:$MKVTOOLNIX_DIR/usr/lib/x86_64-linux-gnu:$MKVTOOLNIX_DIR/lib:$MKVTOOLNIX_DIR/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+exec "$MKVTOOLNIX_DIR/usr/bin/mkvextract" "$@"

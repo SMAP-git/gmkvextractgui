@@ -10,13 +10,13 @@ finish-args:
   - --socket=wayland
   - --device=dri
   - --filesystem=home
-  - --talk-name=org.freedesktop.Flatpak
 modules:
   - name: gmkvextractgui
     buildsystem: simple
     build-commands:
-      - install -d /app/lib/gmkvextractgui /app/bin
+      - install -d /app/lib/gmkvextractgui /app/lib/mkvtoolnix /app/bin
       - cp -a publish/. /app/lib/gmkvextractgui/
+      - cp -a mkvtoolnix/. /app/lib/mkvtoolnix/
       - install -Dm755 launcher /app/bin/gmkvextractgui
       - install -Dm755 tool-wrappers/mkvmerge /app/bin/mkvmerge
       - install -Dm755 tool-wrappers/mkvinfo /app/bin/mkvinfo
