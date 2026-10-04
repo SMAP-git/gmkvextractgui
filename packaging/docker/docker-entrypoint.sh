@@ -15,11 +15,20 @@ cleanup() {
             kill "$pid" 2>/dev/null || true
         fi
     done
+    for pid in "$APP_PID" "$OPENBOX_PID" "$WEBSOCKIFY_PID" "$VNC_PID"; do
+        if [[ -n "$pid" ]]; then
+            wait "$pid" 2>/dev/null || true
+        fi
+    done
+    rm -f /tmp/.X1-lock /tmp/.X11-unix/X1
     rm -rf "$RUNTIME_DIR"
 }
 
 trap cleanup EXIT
 trap 'exit 0' INT TERM
+
+# A forced container stop can leave the fixed X display socket and lock behind.
+rm -f /tmp/.X1-lock /tmp/.X11-unix/X1
 
 if [[ -n "${VNC_PASSWORD:-}" ]]; then
     if [[ ${#VNC_PASSWORD} -lt 6 || ${#VNC_PASSWORD} -gt 8 ]]; then
