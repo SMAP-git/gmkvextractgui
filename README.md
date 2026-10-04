@@ -1,5 +1,7 @@
 # gMKVExtractGUI Linux Version
 
+*Modern MKV extraction for Linux, inspired by the classic gMKVExtractGUI project.*
+
 This directory is a standalone Linux-only edition of gMKVExtractGUI. It contains the Avalonia desktop application, the cross-platform `gMKVToolNix` library it uses, and Linux package definitions. It does not contain the Windows Forms application or Windows build scripts.
 
 The application bundles the .NET runtime in its packages. MKVToolNix and the host's Avalonia/X11 system libraries are installed as package dependencies.
@@ -40,3 +42,23 @@ From this directory, run:
 dotnet publish src/gMKVExtractGUI.Linux/gMKVExtractGUI.Linux.csproj \
   --configuration Release --runtime linux-x64 --self-contained true
 ```
+
+## Project Origins
+
+gMKVExtractGUI for Linux was originally inspired by the excellent
+[gMKVExtractGUI](https://github.com/Gpower2/gMKVExtractGUI) project by Gpower2.
+
+While the original application served as the blueprint for many of the
+features implemented here, this project is not simply a direct port.
+
+The original gMKVExtractGUI is a Windows application built on .NET Framework
+and WinForms, whereas this project was developed specifically for Linux using
+modern .NET and Avalonia UI.
+
+The goal has been to bring as much of the functionality and workflow of the
+original application to Linux users as possible, while taking advantage of a
+modern cross-platform technology stack and implementing Linux-focused
+behaviour where appropriate.
+
+Huge credit goes to the original project for defining many of the workflows
+and features that inspired this implementation.
