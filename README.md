@@ -20,7 +20,7 @@ The build scripts write packages to the local paths shown above. The `artifacts/
 
 The Flatpak bundles MKVToolNix command-line tools, so the host does not need MKVToolNix installed.
 
-The selected theme and **Use input folder** setting are saved in the app's user configuration and restored on the next launch.
+The selected theme, **Use input folder** setting, and saved filename patterns/options are stored in the app's user configuration and restored on the next launch.
 
 ## Docker
 

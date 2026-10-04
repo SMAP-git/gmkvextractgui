@@ -44,6 +44,7 @@
  "tracks.analyzing": "正在分析...",
  "tracks.itemCount": "{count} 個項目",
  "tracks.selectByType": "依類型選擇...",
+ "tracks.expandCollapseAll": "全部展開/收合",
  "tracks.selectAll": "全選",
  "tracks.clear": "清除",
  "tracks.selectAllElements": "選取所有可擷取的元素 ({total})",

@@ -44,6 +44,7 @@
  "tracks.analyzing": "Analüüsimine...",
  "tracks.itemCount": "{count} elementi",
  "tracks.selectByType": "Vali tüübi järgi...",
+ "tracks.expandCollapseAll": "Laienda/ahenda kõik",
  "tracks.selectAll": "Vali kõik",
  "tracks.clear": "Tühjenda",
  "tracks.selectAllElements": "Vali kõik eraldatavad elemendid ({total})",

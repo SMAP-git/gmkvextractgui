@@ -44,6 +44,7 @@
  "tracks.analyzing": "分析中...",
  "tracks.itemCount": "{count} 項目",
  "tracks.selectByType": "種類で選択...",
+ "tracks.expandCollapseAll": "すべて展開/折りたたむ",
  "tracks.selectAll": "すべて選択",
  "tracks.clear": "クリア",
  "tracks.selectAllElements": "すべての抽出可能要素を選択 ({total})",

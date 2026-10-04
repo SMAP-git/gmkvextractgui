@@ -44,6 +44,7 @@
  "tracks.analyzing": "Ανάλυση...",
  "tracks.itemCount": "{count} αντικείμενα",
  "tracks.selectByType": "Επιλογή ανά τύπο...",
+ "tracks.expandCollapseAll": "Ανάπτυξη/σύμπτυξη όλων",
  "tracks.selectAll": "Επιλογή όλων",
  "tracks.clear": "Εκκαθάριση",
  "tracks.selectAllElements": "Επιλογή όλων των εξαγόμενων στοιχείων ({total})",

@@ -44,6 +44,7 @@
  "tracks.analyzing": "분석 중...",
  "tracks.itemCount": "{count}개 항목",
  "tracks.selectByType": "유형별 선택...",
+ "tracks.expandCollapseAll": "모두 펼치기/접기",
  "tracks.selectAll": "모두 선택",
  "tracks.clear": "지우기",
  "tracks.selectAllElements": "모든 추출 가능 요소 선택 ({total})",

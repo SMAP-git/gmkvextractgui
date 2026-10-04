@@ -69,7 +69,13 @@ public partial class MainWindow : Window
                 Debug.WriteLine($"Could not load saved language '{savedLanguage}': {ex.Message}");
             }
         }
-        _filenamePatterns = CreateDefaultFilenamePatterns();
+        _filenamePatternsCustomized = _preferences.FilenamePatternsCustomized && _preferences.FilenamePatterns != null;
+        _filenamePatterns = _filenamePatternsCustomized
+            ? _preferences.FilenamePatterns!
+            : CreateDefaultFilenamePatterns();
+        _disableBomForTextFiles = _preferences.DisableBomForTextFiles;
+        _useRawExtractionMode = _preferences.UseRawExtractionMode;
+        _useFullRawExtractionMode = _preferences.UseFullRawExtractionMode;
         Opened += MainWindow_Opened;
         DataContext = this;
         string? configuredOutputPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_OUTPUT_PATH");
@@ -151,6 +157,7 @@ public partial class MainWindow : Window
         this.FindControl<TextBlock>("TracksTitleText")!.Text = T("tracks.title");
         this.FindControl<TextBlock>("ItemCountText")!.Text = T("tracks.notAnalyzed");
         this.FindControl<Button>("SelectByTypeButton")!.Content = T("tracks.selectByType");
+        this.FindControl<Button>("ExpandCollapseAllButton")!.Content = T("tracks.expandCollapseAll");
         this.FindControl<Button>("SelectAllButton")!.Content = T("tracks.selectAll");
         this.FindControl<Button>("ClearSelectionButton")!.Content = T("tracks.clear");
         this.FindControl<TextBlock>("ChapterFormatLabel")!.Text = T("chapterFormat.label");
@@ -589,6 +596,12 @@ public partial class MainWindow : Window
             _disableBomForTextFiles = disableBom.IsChecked == true;
             _useRawExtractionMode = useRaw.IsChecked == true;
             _useFullRawExtractionMode = useFullRaw.IsChecked == true;
+            _preferences.FilenamePatternsCustomized = _filenamePatternsCustomized;
+            _preferences.FilenamePatterns = CreateFilenamePatterns();
+            _preferences.DisableBomForTextFiles = _disableBomForTextFiles;
+            _preferences.UseRawExtractionMode = _useRawExtractionMode;
+            _preferences.UseFullRawExtractionMode = _useFullRawExtractionMode;
+            SaveAppPreferences();
             saved = true;
             dialog.Close();
         };
@@ -957,6 +970,7 @@ public partial class MainWindow : Window
                 }
 
                 _inputFiles.Add(new InputFileGroup(inputPath, fileRows, key => T(key)));
+                UpdateExpandCollapseAllButton();
             }
 
             this.FindControl<TextBlock>("ItemCountText")!.Text = T("tracks.itemCount", ("count", _segmentRows.Count));
@@ -1339,6 +1353,18 @@ public partial class MainWindow : Window
         }
     }
 
+    private void ExpandCollapseAll_Click(object? sender, RoutedEventArgs e)
+    {
+        bool expandAll = _inputFiles.Any(inputFile => !inputFile.IsExpanded);
+        foreach (InputFileGroup inputFile in _inputFiles)
+        {
+            inputFile.IsExpanded = expandAll;
+        }
+    }
+
+    private void UpdateExpandCollapseAllButton() =>
+        this.FindControl<Button>("ExpandCollapseAllButton")!.IsEnabled = _inputFiles.Count > 0;
+
     private void CollapseInputFiles_Click(object? sender, RoutedEventArgs e)
     {
         foreach (InputFileGroup inputFile in _inputFiles)
@@ -1352,6 +1378,7 @@ public partial class MainWindow : Window
         _isAnalyzed = false;
         _segmentRows.Clear();
         _inputFiles.Clear();
+        UpdateExpandCollapseAllButton();
         this.FindControl<StackPanel>("OverallProgressPanel")!.IsVisible = false;
         this.FindControl<ProgressBar>("FileProgressBar")!.Value = 0;
         this.FindControl<ProgressBar>("OverallProgressBar")!.Value = 0;
@@ -1419,6 +1446,11 @@ public partial class MainWindow : Window
 
         public string Theme { get; set; } = "Light";
         public bool UseInputFolder { get; set; } = true;
+        public bool FilenamePatternsCustomized { get; set; }
+        public gMKVExtractFilenamePatterns? FilenamePatterns { get; set; }
+        public bool DisableBomForTextFiles { get; set; }
+        public bool UseRawExtractionMode { get; set; }
+        public bool UseFullRawExtractionMode { get; set; }
     }
 }
 
@@ -1492,9 +1524,9 @@ public sealed class SegmentRow : INotifyPropertyChanged
     public string InputPath { get; }
 }
 
-public sealed class InputFileGroup
+public sealed class InputFileGroup : INotifyPropertyChanged
 {
-    private bool _isExpanded = true;
+    private bool _isExpanded;
     private readonly Func<string, string> _getText;
 
     public string FileName { get; }

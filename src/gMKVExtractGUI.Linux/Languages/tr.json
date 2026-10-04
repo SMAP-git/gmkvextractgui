@@ -44,6 +44,7 @@
  "tracks.analyzing": "Analiz ediliyor...",
  "tracks.itemCount": "{count} öğe",
  "tracks.selectByType": "Türe göre seç...",
+ "tracks.expandCollapseAll": "Tümünü genişlet/daralt",
  "tracks.selectAll": "Tümünü seç",
  "tracks.clear": "Temizle",
  "tracks.selectAllElements": "Tüm çıkarılabilir öğeleri seç ({total})",

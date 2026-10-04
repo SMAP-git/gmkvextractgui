@@ -44,6 +44,7 @@
  "tracks.analyzing": "Se analizează...",
  "tracks.itemCount": "{count} elemente",
  "tracks.selectByType": "Selectează după tip...",
+ "tracks.expandCollapseAll": "Extinde/restrânge tot",
  "tracks.selectAll": "Selectează tot",
  "tracks.clear": "Curăță",
  "tracks.selectAllElements": "Selectează toate elementele extragibile ({total})",

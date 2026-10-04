@@ -117,14 +117,15 @@
 
     <Border Grid.Row="2" Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="5" Padding="16">
       <Grid RowDefinitions="Auto,1,*" RowSpacing="12">
-        <Grid ColumnDefinitions="*,Auto,Auto,Auto" Background="{DynamicResource PanelHeaderBrush}">
+        <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto" Background="{DynamicResource PanelHeaderBrush}">
           <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
             <TextBlock x:Name="TracksTitleText" Classes="section-title" Text="Extractable Tracks" />
             <TextBlock x:Name="ItemCountText" Foreground="{DynamicResource SecondaryTextBrush}" VerticalAlignment="Center" Text="No file analyzed" />
           </StackPanel>
-          <Button x:Name="SelectByTypeButton" Grid.Column="1" Click="SelectByType_Click" Content="Select by type..." IsEnabled="False" Margin="8,0,0,0" />
-          <Button x:Name="SelectAllButton" Grid.Column="2" Click="SelectAll_Click" Content="Select all" Margin="8,0,0,0" />
-          <Button x:Name="ClearSelectionButton" Grid.Column="3" Click="SelectNone_Click" Content="Clear" Margin="8,0,0,0" />
+          <Button x:Name="ExpandCollapseAllButton" Grid.Column="1" Click="ExpandCollapseAll_Click" Content="Exp/Coll all" IsEnabled="False" Margin="8,0,0,0" />
+          <Button x:Name="SelectByTypeButton" Grid.Column="2" Click="SelectByType_Click" Content="Select by type..." IsEnabled="False" Margin="8,0,0,0" />
+          <Button x:Name="SelectAllButton" Grid.Column="3" Click="SelectAll_Click" Content="Select all" Margin="8,0,0,0" />
+          <Button x:Name="ClearSelectionButton" Grid.Column="4" Click="SelectNone_Click" Content="Clear" Margin="8,0,0,0" />
         </Grid>
         <Border Grid.Row="1" Background="{DynamicResource DividerBrush}" Height="1" />
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">

@@ -44,6 +44,7 @@
  "tracks.analyzing": "Elemzés...",
  "tracks.itemCount": "{count} elem",
  "tracks.selectByType": "Kiválasztás típus szerint...",
+ "tracks.expandCollapseAll": "Összes kibontása/összecsukása",
  "tracks.selectAll": "Összes kijelölése",
  "tracks.clear": "Törlés",
  "tracks.selectAllElements": "Összes kibontható elem kijelölése ({total})",

@@ -44,6 +44,7 @@
  "tracks.analyzing": "विश्लेषण किया जा रहा है...",
  "tracks.itemCount": "{count} आइटम",
  "tracks.selectByType": "प्रकार के अनुसार चुनें...",
+ "tracks.expandCollapseAll": "सभी को विस्तृत/संक्षिप्त करें",
  "tracks.selectAll": "सभी चुनें",
  "tracks.clear": "साफ़ करें",
  "tracks.selectAllElements": "सभी निकाले जाने योग्य तत्व चुनें ({total})",

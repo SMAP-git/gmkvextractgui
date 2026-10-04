@@ -44,6 +44,7 @@
  "tracks.analyzing": "Analizowanie...",
  "tracks.itemCount": "{count} elementów",
  "tracks.selectByType": "Wybierz według typu...",
+ "tracks.expandCollapseAll": "Rozwiń/zwiń wszystkie",
  "tracks.selectAll": "Zaznacz wszystko",
  "tracks.clear": "Wyczyść",
  "tracks.selectAllElements": "Zaznacz wszystkie elementy do wyodrębnienia ({total})",

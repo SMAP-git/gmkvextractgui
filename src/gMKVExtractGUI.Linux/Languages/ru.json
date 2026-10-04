@@ -44,6 +44,7 @@
  "tracks.analyzing": "Анализ...",
  "tracks.itemCount": "Элементов: {count}",
  "tracks.selectByType": "Выбрать по типу...",
+ "tracks.expandCollapseAll": "Развернуть/свернуть всё",
  "tracks.selectAll": "Выбрать все",
  "tracks.clear": "Очистить",
  "tracks.selectAllElements": "Выбрать все элементы для извлечения ({total})",

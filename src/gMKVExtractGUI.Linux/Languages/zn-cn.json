@@ -44,6 +44,7 @@
  "tracks.analyzing": "正在分析...",
  "tracks.itemCount": "{count} 个项目",
  "tracks.selectByType": "按类型选择...",
+ "tracks.expandCollapseAll": "全部展开/折叠",
  "tracks.selectAll": "全选",
  "tracks.clear": "清除",
  "tracks.selectAllElements": "选择所有可提取元素 ({total})",

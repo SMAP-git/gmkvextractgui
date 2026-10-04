@@ -44,6 +44,7 @@
  "tracks.analyzing": "Analyseren...",
  "tracks.itemCount": "{count} items",
  "tracks.selectByType": "Selecteren op type...",
+ "tracks.expandCollapseAll": "Alles uit-/inklappen",
  "tracks.selectAll": "Alles selecteren",
  "tracks.clear": "Wissen",
  "tracks.selectAllElements": "Alle extraheerbare elementen selecteren ({total})",

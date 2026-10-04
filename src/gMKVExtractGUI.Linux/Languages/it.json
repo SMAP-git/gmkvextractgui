@@ -44,6 +44,7 @@
  "tracks.analyzing": "Analisi in corso...",
  "tracks.itemCount": "{count} elementi",
  "tracks.selectByType": "Seleziona per tipo...",
+ "tracks.expandCollapseAll": "Espandi/comprimi tutto",
  "tracks.selectAll": "Seleziona tutto",
  "tracks.clear": "Cancella",
  "tracks.selectAllElements": "Seleziona tutti gli elementi estraibili ({total})",
