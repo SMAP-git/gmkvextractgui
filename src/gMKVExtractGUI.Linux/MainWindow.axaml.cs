@@ -25,6 +25,8 @@ public partial class MainWindow : Window
     private readonly ObservableCollection<InputFileGroup> _inputFiles = new();
     private Dictionary<string, string> _englishStrings = new(StringComparer.Ordinal);
     private Dictionary<string, string> _strings = new(StringComparer.Ordinal);
+    private AppPreferences _preferences = new();
+    private bool _loadingPreferences = true;
     private gMKVExtractFilenamePatterns _filenamePatterns = new();
     private bool _filenamePatternsCustomized;
     private bool _disableBomForTextFiles;
@@ -46,6 +48,12 @@ public partial class MainWindow : Window
     public MainWindow(string[]? inputPaths)
     {
         AvaloniaXamlLoader.Load(this);
+        _preferences = LoadAppPreferences();
+        if (Application.Current != null)
+        {
+            Application.Current.RequestedThemeVariant = GetThemeVariant(_preferences.Theme);
+        }
+        this.FindControl<CheckBox>("UseInputFolderCheckBox")!.IsChecked = _preferences.UseInputFolder;
         _englishStrings = LoadBundledCatalog("en");
         _strings = LoadCatalog("en");
         string savedLanguage = LoadSavedLanguage();
@@ -77,6 +85,7 @@ public partial class MainWindow : Window
         this.FindControl<ItemsControl>("SegmentList")!.ItemsSource = _inputFiles;
         ApplyLocalization();
         UpdateOutputFolderControls();
+        _loadingPreferences = false;
 
         string[] existingPaths = (inputPaths ?? Array.Empty<string>()).Where(File.Exists).ToArray();
         if (existingPaths.Length > 0)
@@ -387,17 +396,70 @@ public partial class MainWindow : Window
         return item;
     }
 
-    private static MenuItem CreateThemeMenuItem(string header, ThemeVariant theme)
+    private MenuItem CreateThemeMenuItem(string header, ThemeVariant theme)
     {
         var item = new MenuItem { Header = header };
-        item.Click += (_, _) =>
-        {
-            if (Application.Current != null)
-            {
-                Application.Current.RequestedThemeVariant = theme;
-            }
-        };
+        item.Click += (_, _) => SetTheme(theme);
         return item;
+    }
+
+    private void SetTheme(ThemeVariant theme)
+    {
+        if (Application.Current != null)
+        {
+            Application.Current.RequestedThemeVariant = theme;
+        }
+
+        _preferences.Theme = theme == ThemeVariant.Dark
+            ? "Dark"
+            : theme == ThemeVariant.Light
+                ? "Light"
+                : "System";
+        SaveAppPreferences();
+    }
+
+    private static ThemeVariant GetThemeVariant(string theme) => theme.ToLowerInvariant() switch
+    {
+        "dark" => ThemeVariant.Dark,
+        "system" => ThemeVariant.Default,
+        _ => ThemeVariant.Light
+    };
+
+    private static string GetAppPreferencesPath() => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "gMKVExtractGUI",
+        "settings.json");
+
+    private static AppPreferences LoadAppPreferences()
+    {
+        try
+        {
+            string settingsPath = GetAppPreferencesPath();
+            if (File.Exists(settingsPath))
+            {
+                return JsonSerializer.Deserialize<AppPreferences>(File.ReadAllText(settingsPath)) ?? new();
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)
+        {
+            Debug.WriteLine($"Could not load app preferences: {ex.Message}");
+        }
+
+        return new AppPreferences();
+    }
+
+    private void SaveAppPreferences()
+    {
+        try
+        {
+            string settingsPath = GetAppPreferencesPath();
+            Directory.CreateDirectory(Path.GetDirectoryName(settingsPath)!);
+            File.WriteAllText(settingsPath, JsonSerializer.Serialize(_preferences, new JsonSerializerOptions { WriteIndented = true }));
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Debug.WriteLine($"Could not save app preferences: {ex.Message}");
+        }
     }
 
     private async void OptionsMenu_Click(object? sender, RoutedEventArgs e)
@@ -835,7 +897,14 @@ public partial class MainWindow : Window
     }
 
     private void UseInputFolderCheckBox_IsCheckedChanged(object? sender, RoutedEventArgs e)
-        => UpdateOutputFolderControls();
+    {
+        UpdateOutputFolderControls();
+        if (!_loadingPreferences)
+        {
+            _preferences.UseInputFolder = this.FindControl<CheckBox>("UseInputFolderCheckBox")!.IsChecked == true;
+            SaveAppPreferences();
+        }
+    }
 
     private void UpdateOutputFolderControls()
     {
@@ -1341,6 +1410,16 @@ public partial class MainWindow : Window
         AttachmentFilenamePattern = _filenamePatterns.AttachmentFilenamePattern,
         TagsFilenamePattern = _filenamePatterns.TagsFilenamePattern
     };
+
+    private sealed class AppPreferences
+    {
+        public AppPreferences()
+        {
+        }
+
+        public string Theme { get; set; } = "Light";
+        public bool UseInputFolder { get; set; } = true;
+    }
 }
 
 public sealed class SegmentRow : INotifyPropertyChanged
