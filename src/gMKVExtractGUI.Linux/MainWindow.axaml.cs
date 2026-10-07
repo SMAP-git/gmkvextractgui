@@ -853,7 +853,9 @@ public partial class MainWindow : Window
                 new FilePickerFileType(T("input.fileTypeAll")) { Patterns = new[] { "*" } }
             }
         };
-        string? configuredInputPath = Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_INPUT_PATH");
+        string? configuredInputPath = _lastInputDirectory != null && Directory.Exists(_lastInputDirectory)
+            ? _lastInputDirectory
+            : Environment.GetEnvironmentVariable("GMKVEXTRACTGUI_DEFAULT_INPUT_PATH");
         if (!string.IsNullOrWhiteSpace(configuredInputPath) && Directory.Exists(configuredInputPath))
         {
             string fullInputPath = Path.GetFullPath(configuredInputPath);
@@ -882,6 +884,7 @@ public partial class MainWindow : Window
         }
 
         string[] selectedPaths = files.Select(file => file.Path.LocalPath).ToArray();
+        _lastInputDirectory = Path.GetDirectoryName(selectedPaths[0]);
         string[] inputPaths = append
             ? GetInputPaths().Concat(selectedPaths).Distinct(StringComparer.Ordinal).ToArray()
             : selectedPaths;
@@ -894,6 +897,8 @@ public partial class MainWindow : Window
 
         await AnalyzeInputFilesAsync();
     }
+
+    private string? _lastInputDirectory;
 
     private async void BrowseOutput_Click(object? sender, RoutedEventArgs e)
     {
