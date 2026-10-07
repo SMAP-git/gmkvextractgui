@@ -25,6 +25,8 @@ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
 
 ENV HOME=/config \
+    LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
     VNC_GEOMETRY=1280x800 \
     VNC_PORT=5901 \
     NOVNC_PORT=6080 \
