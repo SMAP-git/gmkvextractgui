@@ -16,13 +16,13 @@ The repository workflow downloads the `.deb` from the matching GitHub release, b
 ```sh
 gh workflow run publish-docker.yml \
   --repo SMAP-git/gmkvextractgui \
-  -f version=1.0.1
+  -f version=1.0.2
 ```
 
-The published image is `ghcr.io/smap-git/gmkvextractgui:1.0.1`. Pull it with:
+The published image is `ghcr.io/smap-git/gmkvextractgui:1.0.2`. Pull it with:
 
 ```sh
-docker pull ghcr.io/smap-git/gmkvextractgui:1.0.1
+docker pull ghcr.io/smap-git/gmkvextractgui:1.0.2
 ```
 
 GitHub may initially mark the container package private. If public downloads are needed, change its visibility to public in the package settings on GitHub.
@@ -33,7 +33,7 @@ Use the [Unraid container template](unraid-template.xml), or enter the same valu
 
 | Setting | Value |
 | --- | --- |
-| Repository | `ghcr.io/smap-git/gmkvextractgui:1.0.1` |
+| Repository | `ghcr.io/smap-git/gmkvextractgui:1.0.2` |
 | Network type | `bridge` |
 | Extra parameters | `--user=99:100` (`nobody:users`) |
 | VNC WebUI port | Host `6080` to container `6080/tcp`; the WebUI opens noVNC |
@@ -60,7 +60,7 @@ docker run --rm -d --name gmkvextractgui-vnc \
   --publish 127.0.0.1:5901:5901 \
   --volume "$HOME/Videos:/media:ro" \
   --volume "$HOME/Videos/gmkvextract-output:/output:rw" \
-  ghcr.io/smap-git/gmkvextractgui:1.0.1
+  ghcr.io/smap-git/gmkvextractgui:1.0.2
 ```
 
  Open `http://127.0.0.1:6080/vnc.html?autoconnect=true&resize=scale` in a browser or connect a native VNC client to `127.0.0.1:5901`. Enter the password if set. TigerVNC VncAuth passwords must be 6-8 characters. Without a password, anyone who can reach the port can control the desktop; bind it to localhost or use a trusted network. The picker opens in `/media`; input-folder mode is enabled by default and requires the `/media` mount to be `:rw`. Stop the container with `docker stop gmkvextractgui-vnc`.

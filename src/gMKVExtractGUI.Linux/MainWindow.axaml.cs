@@ -201,7 +201,7 @@ public partial class MainWindow : Window
     private void SetMenuHeader(string controlName, string stringKey) =>
         this.FindControl<MenuItem>(controlName)!.Header = T(stringKey);
 
-    private string GetAppVersion() => typeof(App).Assembly.GetName().Version?.ToString(3) ?? "1.0.1";
+    private string GetAppVersion() => typeof(App).Assembly.GetName().Version?.ToString(3) ?? "1.0.2";
 
     private IEnumerable<string> GetAvailableLanguages()
     {

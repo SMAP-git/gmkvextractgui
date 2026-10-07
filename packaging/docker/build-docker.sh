@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-VERSION="${VERSION:-1.0.1}"
+VERSION="${VERSION:-1.0.2}"
 DEB_PACKAGE="${DEB_PACKAGE:-$ROOT_DIR/artifacts/debian/gmkvextractgui_${VERSION}_amd64.deb}"
 IMAGE_NAME="${IMAGE_NAME:-gmkvextractgui:${VERSION}}"
 BUILD_DIR="$(mktemp -d)"
