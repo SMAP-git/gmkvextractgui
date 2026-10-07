@@ -10,6 +10,9 @@ APP_PID=""
 VNC_SECURITY_ARGS=()
 
 cleanup() {
+    if [[ -n "${DBUS_SESSION_BUS_PID:-}" ]]; then
+        kill "$DBUS_SESSION_BUS_PID" 2>/dev/null || true
+    fi
     for pid in "$APP_PID" "$OPENBOX_PID" "$WEBSOCKIFY_PID" "$VNC_PID"; do
         if [[ -n "$pid" ]]; then
             kill "$pid" 2>/dev/null || true
@@ -71,6 +74,20 @@ fi
 
 websockify --web=/usr/share/novnc "${NOVNC_PORT:-6080}" "127.0.0.1:${VNC_PORT:-5901}" &
 WEBSOCKIFY_PID=$!
+
+# The GTK portal gives the app the native file chooser, which can sort by column.
+export XDG_RUNTIME_DIR="$RUNTIME_DIR"
+export XDG_CURRENT_DESKTOP=GNOME
+
+# The container may run as an arbitrary UID (Unraid uses 99:100) that has no passwd entry, which D-Bus requires.
+if ! getent passwd "$(id -u)" >/dev/null; then
+    printf 'app:x:%s:%s:app:%s:/usr/sbin/nologin\n' "$(id -u)" "$(id -g)" "${HOME:-/tmp}" > "$RUNTIME_DIR/nss-passwd"
+    printf 'app:x:%s:\n' "$(id -g)" > "$RUNTIME_DIR/nss-group"
+    export LD_PRELOAD=libnss_wrapper.so NSS_WRAPPER_PASSWD="$RUNTIME_DIR/nss-passwd" NSS_WRAPPER_GROUP="$RUNTIME_DIR/nss-group"
+fi
+eval "$(dbus-launch --sh-syntax)"
+/usr/libexec/xdg-desktop-portal-gtk &
+/usr/libexec/xdg-desktop-portal &
 
 openbox-session &
 OPENBOX_PID=$!

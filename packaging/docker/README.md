@@ -7,7 +7,7 @@ bash packaging/debian/build-deb.sh
 bash packaging/docker/build-docker.sh
 ```
 
-The image installs the `.deb` and its dependencies, including MKVToolNix, then starts the GUI in a TigerVNC desktop session. It serves noVNC/Websockify on port `6080` for browser access and raw VNC on port `5901` for native clients. The container runs as a non-root user. The current user needs access to the Docker daemon; Docker group membership grants root-equivalent privileges.
+The image installs the `.deb` and its dependencies, including MKVToolNix and the GTK desktop portal (for the native, sortable file picker), then starts the GUI in a TigerVNC desktop session. It serves noVNC/Websockify on port `6080` for browser access and raw VNC on port `5901` for native clients. The container runs as a non-root user. The current user needs access to the Docker daemon; Docker group membership grants root-equivalent privileges.
 
 ## Publish to GitHub Container Registry
 
