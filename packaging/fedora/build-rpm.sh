@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-VERSION="${VERSION:-1.0.2}"
+VERSION="${VERSION:-1.0.3}"
 BUILD_DIR="$(mktemp -d)"
 trap 'rm -rf "$BUILD_DIR"' EXIT
 RPM_TOPDIR="$BUILD_DIR/rpmbuild"
@@ -14,7 +14,7 @@ if [[ "$(uname -m)" != "x86_64" ]]; then
 fi
 
 if ! command -v dotnet >/dev/null 2>&1 || ! command -v rpmbuild >/dev/null 2>&1; then
-    printf 'The .NET 8 SDK and rpmbuild are required.\n' >&2
+    printf 'The .NET 10 SDK and rpmbuild are required.\n' >&2
     exit 1
 fi
 

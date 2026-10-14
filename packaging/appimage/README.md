@@ -1,6 +1,6 @@
 # AppImage
 
-Build an x86_64 AppImage on Linux with the .NET 8 SDK and `appimagetool` available:
+Build an x86_64 AppImage on Linux with the .NET 10 SDK and `appimagetool` available:
 
 ```sh
 bash packaging/appimage/build-appimage.sh

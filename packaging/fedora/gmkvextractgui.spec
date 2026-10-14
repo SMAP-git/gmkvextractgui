@@ -1,12 +1,12 @@
 Name:           gmkvextractgui
-Version:        %{?pkgversion}%{!?pkgversion:1.0.2}
+Version:        %{?pkgversion}%{!?pkgversion:1.0.3}
 Release:        1%{?dist}
 Summary:        Matroska track extraction GUI
 License:        Unlicense
 %global debug_package %{nil}
 URL:            https://github.com/smap-git/gMKVExtractGUI
 Source0:        gMKVExtractGUI_Linux_Version-%{version}.tar.gz
-BuildRequires:  dotnet-sdk-8.0
+BuildRequires:  dotnet-sdk-10.0
 Requires:       mkvtoolnix
 Requires:       fontconfig
 Requires:       libICE
@@ -53,6 +53,8 @@ install -m 0644 packaging/docker/unraid-icon.png \
 /usr/share/icons/hicolor/256x256/apps/gMKVExtractGUI.png
 
 %changelog
+* Thu Oct 15 2026 gMKVExtractGUI contributors - 1.0.3-1
+- Target .NET 10 and update the D-Bus dependency to its security-fixed release
 * Wed Oct 07 2026 gMKVExtractGUI contributors - 1.0.2-1
 - Release 1.0.2
 * Sun Oct 04 2026 gMKVExtractGUI contributors - 1.0.1-1

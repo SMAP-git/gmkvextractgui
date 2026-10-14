@@ -15,7 +15,7 @@ if [[ "$(uname -m)" != "x86_64" ]]; then
 fi
 
 if ! command -v dotnet >/dev/null 2>&1; then
-    printf '.NET 8 SDK is required to publish the application.\n' >&2
+    printf '.NET 10 SDK is required to publish the application.\n' >&2
     exit 1
 fi
 
