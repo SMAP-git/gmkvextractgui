@@ -14,6 +14,17 @@ RUN sed -i 's/^Components: main$/Components: main universe/' /etc/apt/sources.li
     && rm -f /tmp/gmkvextractgui.deb \
     && rm -rf /var/lib/apt/lists/*
 
+COPY unraid-icon.png /usr/share/novnc/gmkvextractgui.png
+RUN grep -q '<title>noVNC</title>' /usr/share/novnc/vnc.html \
+    && grep -q '<link rel="icon"' /usr/share/novnc/vnc.html \
+    && sed -i \
+        -e '/<link rel="icon"/d' \
+        -e 's|<title>noVNC</title>|<title>gMKVExtractGUI</title>|' \
+        -e '/<title>gMKVExtractGUI<\/title>/a\    <link rel="icon" type="image/png" href="/gmkvextractgui.png">' \
+        /usr/share/novnc/vnc.html \
+    && grep -q '<title>gMKVExtractGUI</title>' /usr/share/novnc/vnc.html \
+    && grep -q '<link rel="icon" type="image/png" href="/gmkvextractgui.png">' /usr/share/novnc/vnc.html
+
 RUN useradd --create-home --shell /usr/sbin/nologin app \
     && mkdir -p /config /media /output /tmp/.X11-unix \
     && chown app:app /config /media /output \
