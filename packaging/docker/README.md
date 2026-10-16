@@ -27,6 +27,8 @@ docker pull ghcr.io/smap-git/gmkvextractgui:1.0.3
 
 GitHub may initially mark the container package private. If public downloads are needed, change its visibility to public in the package settings on GitHub.
 
+When updating an existing Unraid installation, pull the updated image and recreate the container (a restart alone does not update it). Reopen the WebUI and hard-refresh the page to clear cached noVNC assets. The browser tab keeps the gMKVExtractGUI title when connected or disconnected.
+
 ## Unraid
 
 Use the [Unraid container template](unraid-template.xml), or enter the same values in Unraid's Docker form:

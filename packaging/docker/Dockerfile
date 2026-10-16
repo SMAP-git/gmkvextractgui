@@ -25,6 +25,13 @@ RUN grep -q '<title>noVNC</title>' /usr/share/novnc/vnc.html \
     && grep -q '<title>gMKVExtractGUI</title>' /usr/share/novnc/vnc.html \
     && grep -q '<link rel="icon" type="image/png" href="/gmkvextractgui.png">' /usr/share/novnc/vnc.html
 
+RUN grep -q '^const PAGE_TITLE = "noVNC";$' /usr/share/novnc/app/ui.js \
+    && grep -Fq 'document.title = e.detail.name + " - " + PAGE_TITLE;' /usr/share/novnc/app/ui.js \
+    && sed -i \
+        -e 's/^const PAGE_TITLE = "noVNC";$/const PAGE_TITLE = "gMKVExtractGUI";/' \
+        -e 's/document.title = e.detail.name + " - " + PAGE_TITLE;/document.title = PAGE_TITLE;/' \
+        /usr/share/novnc/app/ui.js
+
 RUN useradd --create-home --shell /usr/sbin/nologin app \
     && mkdir -p /config /media /output /tmp/.X11-unix \
     && chown app:app /config /media /output \
